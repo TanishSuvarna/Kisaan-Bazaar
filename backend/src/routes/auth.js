@@ -1,10 +1,10 @@
 import express  from "express";
 const userRouter = express.Router();
-import {  signUpSeller, signInSeller, signInBuyer, signUpBuyer} from "../controller/auth.js";
+import {  signUpSeller, signInSeller, signInBuyer,signUpBuyer} from "../controller/auth.js";
 import {validateSignIn, validateSignUp} from "../validator/authValidator.js";
 import { isValid } from "../validator/commonValidator.js";
 userRouter.post("/seller/signup" ,validateSignUp , isValid, signUpSeller);
 userRouter.post("/seller/signin" ,validateSignIn , isValid, signInSeller);
 userRouter.post("/buyer/signup" ,validateSignUp , isValid, signUpBuyer);
-userRouter.post("/buyer/signin" ,validateSignIn , isValid, signInBuyer);
+userRouter.post("/buyer/signin" ,validateSignIn , isValid, signInSeller);
 export default userRouter;
