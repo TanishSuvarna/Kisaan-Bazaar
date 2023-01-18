@@ -1,12 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import LandingPage from "./components/LandingPage";
+import Login2 from "./components/Login2";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+import Sign from "./components/Sign";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <LandingPage></LandingPage>
   </React.StrictMode>
 );
 
