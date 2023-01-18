@@ -15,7 +15,13 @@ export const validateSignUp = [
     .withMessage('Password must be at least 6 character long'),
     check("email")
     .isEmail()
-    .withMessage("Enter A Valid Email")
+    .withMessage("Enter A Valid Email"),
+    check("address")
+    .notEmpty()
+    .withMessage("Address Is Required"),
+    check("state")
+    .notEmpty()
+    .withMessage("State Is Required")
 ]
 
 export const validateSignIn = [

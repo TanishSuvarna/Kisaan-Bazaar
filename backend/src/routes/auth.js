@@ -1,8 +1,10 @@
 import express  from "express";
 const userRouter = express.Router();
-import { signUpUser ,signInUser} from "../controller/auth.js";
+import {  signUpSeller, signInSeller, signInBuyer, signUpBuyer} from "../controller/auth.js";
 import {validateSignIn, validateSignUp} from "../validator/authValidator.js";
 import { isValid } from "../validator/commonValidator.js";
-userRouter.post("/user/signup" ,validateSignUp , isValid, signUpUser);
-userRouter.post("/user/signin" ,validateSignIn , isValid, signInUser);
+userRouter.post("/seller/signup" ,validateSignUp , isValid, signUpSeller);
+userRouter.post("/seller/signin" ,validateSignIn , isValid, signInSeller);
+userRouter.post("/buyer/signup" ,validateSignUp , isValid, signUpBuyer);
+userRouter.post("/buyer/signin" ,validateSignIn , isValid, signInBuyer);
 export default userRouter;
