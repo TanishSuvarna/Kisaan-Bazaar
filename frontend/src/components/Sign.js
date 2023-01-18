@@ -120,19 +120,22 @@ function Sign(setisSignin, setisSignup) {
                 size="lg"
               />
 
-              <MDBRow>
-                <h6>Select your region</h6>
-                <select
-                  value={selected}
-                  onChange={(e) => setSelected(e.target.value)}
-                >
-                  {options.map((value) => (
-                    <option value={value} key={value}>
-                      {value}
-                    </option>
-                  ))}
-                </select>
-              </MDBRow>
+              <MDBCol>
+                <div className='fw-normal text-start me-2'>
+                  Select your region
+                  {/* <h6 className='fw-normal text-start me-2' >Select your region</h6> */}
+                  <select className='mb-4 py-1 px-3 ms-2 square border border-grey'
+                    value={selected}
+                    onChange={(e) => setSelected(e.target.value)}>
+                    {options.map((value) => (
+                      <option value={value} key={value}>
+                        {value}
+                      </option>
+                    ))}
+                  </select>
+
+                </div>
+              </MDBCol>
 
               <div className="mb-4 my-3">
                 <MDBCheckbox
