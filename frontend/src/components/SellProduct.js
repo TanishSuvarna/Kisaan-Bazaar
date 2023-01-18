@@ -2,13 +2,14 @@ import React from "react";
 import "../css/SellProduct.css";
 import SellProductForm from "./SellProductForm";
 import { useState } from "react";
-
+import SellerNavbar from "./SellerNavbar";
 const SellProduct = () => {
   const [isCrossed, setisCrossed] = useState(false);
   const [isAddProduct, setisAddProduct] = useState(false);
 
   return (
     <>
+    <SellerNavbar/>
       <div className="sellProduct-main-container">
         <div className="back-lines"></div>
         <div className="sellProduct-wrapper">

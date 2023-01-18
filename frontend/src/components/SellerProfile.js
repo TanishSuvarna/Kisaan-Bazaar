@@ -1,9 +1,10 @@
 import "../css/SellerProfile.css";
 import React from "react";
-
+import SellerNavbar from "./SellerNavbar";
 const SellerProfile = () => {
   return (
     <>
+    <SellerNavbar/>
       <div className="seller-profile-container">
         <div className="seller-container-wrapper">
           <div className="main-profile-div">

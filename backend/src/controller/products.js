@@ -26,14 +26,21 @@ export const getInactiveSellerProducts = async (req,res,next) => {
 
 export const addProduct = async (req,res,next) => {
     let owner = req.user._id;
-    const {name , quantity , basePrice , numberOfDaysToAdd} = req.body;
+    // const categoryInfo = {
+    //     name : req.body.name,
+    //     slug : slugify(req.body.name),
+    //     parentID : req.body.parentID,
+    //     categoryImage : req.file ? process.env.API + "/public" + "/" + req.file.filename : ""
+    // }
+    const {name , quantity , basePrice ,description, numberOfDaysToAdd} = req.body;
+    if(!name || !quantity  || !basePrice || !description ) return res.status(400).json({message:"Something Went Wrong"});
     const AuctionStartTime = new Date();
     console.log(AuctionStartTime);
     const AuctionEndTime = new Date(AuctionStartTime.setDate(parseInt(AuctionStartTime.getDate()) + numberOfDaysToAdd ? parseInt(numberOfDaysToAdd) : 1));
     console.log(AuctionEndTime);
-
+    const image =  req.file ? process.env.API + "/public" + "/" + req.file.filename : "";
     try{
-        const newProduct = new Products({name , quantity ,owner , basePrice , AuctionStartTime , AuctionEndTime })
+        const newProduct = new Products({name , quantity ,owner , basePrice ,description, AuctionStartTime , AuctionEndTime ,image })
         newProduct.save((err , data) => {
             if(err){
                 res.status(400).json({err});
