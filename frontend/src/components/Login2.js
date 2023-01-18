@@ -61,7 +61,6 @@ function Login2({setisSignin, setisSignup, setcrossClicked}) {
             >
               <MDBCardBody className="p-5 w-100 d-flex flex-column">
                 <h2 className="fw-bold mb-2 text-center">Login</h2>
-                
 
                 <MDBInput
                   wrapperClass="mb-4 w-100"
@@ -125,6 +124,7 @@ function Login2({setisSignin, setisSignup, setcrossClicked}) {
                         setisSignin(false);
                         setisSignup(true);
                         setcrossClicked(false);
+                        alert("hello");
                       }}
                     >
                       Sign Up
