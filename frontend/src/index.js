@@ -4,13 +4,19 @@ import "./index.css";
 import App from "./App";
 import LandingPage from "./components/LandingPage";
 import Login2 from "./components/Login2";
-
+import { BrowserRouter } from "react-router-dom";
 import Sign from "./components/Sign";
+import SellerDashboard from "./components/SellerDashboard";
+import SellProduct from "./components/SellProduct";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <LandingPage></LandingPage>
+    {/* <LandingPage></LandingPage> */}
+    {/* <SellerDashboard></SellerDashboard> */}
+    <BrowserRouter>
+      <App></App>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
