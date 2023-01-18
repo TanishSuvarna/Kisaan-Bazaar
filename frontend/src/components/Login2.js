@@ -1,6 +1,9 @@
 import React from "react";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
+import { useState } from "react";
 import "../css/Login2.css";
+import { customInstance } from "../helpers/axios";
+import {Navigate} from "react-router-dom"
 import {
   MDBBtn,
   MDBContainer,
@@ -11,12 +14,44 @@ import {
   MDBInput,
   MDBIcon,
   MDBCheckbox,
+  MDBRadio,
 } from "mdb-react-ui-kit";
 
-function Login2(setisSignin, setisSignup, setcrossClicked) {
+function Login2({setisSignin, setisSignup, setcrossClicked}) {
+  const [userInfo , setUserInfo] = useState({
+    email:"",
+    password:""
+  })
+  const [query , setQuery] = useState("Buyer");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    try{
+      const axios = customInstance();
+      console.log(query);
+      const payload = await axios.post(`/${query}/signin`, userInfo);
+      localStorage.setItem("token" , payload.data.token);
+      localStorage.setItem("user",JSON.stringify(payload.data.user));
+      <Navigate to ="/products"/>
+    }catch{
+      alert("Something Went Wrong");
+    }
+    setUserInfo({
+      firstName : "",
+      lastName :"",
+      email :"",
+      address:"",
+      state:"",
+      password:"",
+    })
+  }
+  const handleChange= (e) => {
+    setUserInfo((prev) => {
+      return {...prev , [e.target.name] : e.target.value};})
+  }
   return (
     <MDBContainer fluid>
-      <form>
+      <form onSubmit={handleSubmit}>
         <MDBRow className="d-flex justify-content-center align-items-center h-100">
           <MDBCol col="12">
             <MDBCard
@@ -34,6 +69,9 @@ function Login2(setisSignin, setisSignup, setcrossClicked) {
                   id="formControlLg"
                   type="email"
                   size="lg"
+                  name ="email"
+                  value={userInfo.email}
+                  onChange={handleChange}
                 />
                 <MDBInput
                   wrapperClass="mb-4 w-100"
@@ -42,14 +80,36 @@ function Login2(setisSignin, setisSignup, setcrossClicked) {
                   id="formControlLg"
                   type="password"
                   size="lg"
+                  name ="password"
+                  value={userInfo.password}
+                  onChange={handleChange}
                 />
+                <MDBCol md="6" className="mb-4">
+                <h6 className="fw-bold">I am: </h6>
+                <MDBRadio
+                  name="inlineRadio"
+                  id="inlineRadio1"
+                  value="Buyer"
+                  label="Buyer"
+                  onClick={(e) => setQuery(e.target.value)}
+                  inline
+                />
+                <MDBRadio
+                  name="inlineRadio"
+                  id="inlineRadio2"
+                  value="Seller"
+                  label="Seller"
+                  onClick={(e) => setQuery(e.target.value)}
+                  inline
+                />
+              </MDBCol>
 
                 {/* <MDBCheckbox name='flexCheck' id='flexCheckDefault' className='mb-4' label='Remember password' /> */}
-                <p className="small mb-3 pb-lg-2">
+                {/* <p className="small mb-3 pb-lg-2">
                   <a class="text-dark-50" href="#!">
                     Forgot password?
                   </a>
-                </p>
+                </p> */}
 
                 <MDBBtn size="lg">Login</MDBBtn>
 
@@ -58,7 +118,7 @@ function Login2(setisSignin, setisSignup, setcrossClicked) {
                   <p className="mb-0">
                     Don't have an account?{" "}
                     <a
-                      href="./component/signup.js"
+                      
                       class="text-dark-50 fw-bold"
                       onClick={() => {
                         setisSignin(false);
@@ -67,7 +127,7 @@ function Login2(setisSignin, setisSignup, setcrossClicked) {
                       }}
                     >
                       Sign Up
-                    </a>
+                      </a>
                   </p>
                 </div>
               </MDBCardBody>

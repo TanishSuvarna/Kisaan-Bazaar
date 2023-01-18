@@ -1,6 +1,9 @@
 import io from "socket.io-client";
 import {useEffect , useState} from 'react'
-
+import {BrowserRouter , Routes,Route} from 'react-router-dom'
+import LandingPage from './components/LandingPage.js'
+import { PrivateRoutes } from "./helpers/privateRoutes.js";
+import Products from "./components/Products.js";
 function App() {
   // const [socket, setSocket] = useState(null);
   // const [num , setNum] = useState(0);
@@ -24,11 +27,21 @@ function App() {
   //   socket.emit("updatedNumVal" , e.target.value);
   // }
   return (
-    <div className="App">
-      hello
-      {/* <input type = "number" placeholder = "Update Num" value = {num} onChange = {handleChange}/>
-      <h1>{visual}</h1> */}
-    </div>
+    <BrowserRouter>
+    
+      <Routes>
+         <Route path = "/" exact element={<LandingPage/>}/>
+          {/* <Route element ={<PrivateRoutes/>}>  */}
+              {/* <Route path = "/category" element={<Category/>}></Route> */}
+              <Route path = "/products" element={<Products/>}></Route>
+              {/* <Route path = "/orders" element={<Orders/>}></Route> */}
+              {/* <Route path = "*" element={<Home/>}></Route */}
+          {/* </Route> */}
+          
+          
+      </Routes>  
+      
+    </BrowserRouter>
   );
 }
 
