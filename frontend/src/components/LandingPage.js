@@ -4,12 +4,14 @@ import { useState } from "react";
 import "../css/LandingPage.css";
 import Login2 from "./Login2";
 import Sign from "./Sign";
-const LandingPage = () => {
+ const LandingPage = () => {
   const [crossClicked, setcrossClicked] = useState(false);
 
   const [isSignup, setisSignup] = useState(false);
 
   const [isSignin, setisSignin] = useState(false);
+
+  
 
   // const [burger_class, setBurgerClass] = useState("hamburger_lines unclicked");
 
