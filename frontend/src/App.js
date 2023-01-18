@@ -28,19 +28,12 @@ function App() {
   // }
   return (
     <BrowserRouter>
-    
       <Routes>
-         <Route path = "/" exact element={<LandingPage/>}/>
-          {/* <Route element ={<PrivateRoutes/>}>  */}
-              {/* <Route path = "/category" element={<Category/>}></Route> */}
-              <Route path = "/products" element={<Products/>}></Route>
-              {/* <Route path = "/orders" element={<Orders/>}></Route> */}
-              {/* <Route path = "*" element={<Home/>}></Route */}
-          {/* </Route> */}
-          
-          
-      </Routes>  
-      
+      <Route path = "/" exact element={<LandingPage/>}/><Route/>
+      <Route element ={<PrivateRoutes/>}> 
+              <Route path = "/products" element={<Products/>}/><Route/>
+          </Route>
+        </Routes>   
     </BrowserRouter>
   );
 }

@@ -2,7 +2,7 @@ import React from "react";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import { useState } from "react";
 import { customInstance } from "../helpers/axios";
-import {Navigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import {
   MDBBtn,
   MDBContainer,
@@ -48,6 +48,7 @@ const options = [
 ];
 
 function Sign({setisSignin, setisSignup}) {
+  const navigate = useNavigate();
   const [userInfo , setUserInfo] = useState({
     firstName : "",
     lastName :"",
@@ -65,7 +66,7 @@ function Sign({setisSignin, setisSignup}) {
       const payload = await axios.post(`/${query}/signup`, userInfo);
       localStorage.setItem("token" , payload.data.token);
       localStorage.setItem("user",JSON.stringify(payload.data.user));
-      <Navigate to ="/products"/>
+      navigate("/products")
     }catch{
       alert("Something Went Wrong");
     }
