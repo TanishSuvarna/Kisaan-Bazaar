@@ -33,6 +33,9 @@ const sellerSchema = new mongoose.Schema({
     hash_password:{
       type:String,
       required:true
+    },
+    rating:{
+        
     } 
 },{timestamps:true});
 

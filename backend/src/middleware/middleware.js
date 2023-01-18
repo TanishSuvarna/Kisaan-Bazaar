@@ -32,16 +32,16 @@ export const isSignedIn = (req,res,next) =>{
 }
 
 
-// export const  isUser = (req,res,next) => {
-//     if(req.user.role === "user" || req.user.role === "admin"){
-//          next();
-//     }
-//     else return res.status(404).json({message:"Unauthorized Access"});
-// }
+export const  isValidSeller = (req,res,next) => {
+    if(req.user.role === "seller" || req.user.role === "admin"){
+         next();
+    }
+    else return res.status(404).json({message:"Unauthorized Access"});
+}
 
-// export const  isAdmin = (req,res,next) => {
-//     if(req.user.role === "admin"){
-//          next();
-//     }
-//     else return res.status(404).json({message:"Unauthorized Access"});
-// }
+export const  isValidBuyer = (req,res,next) => {
+    if(req.user.role === "buyer" || req.user.role === "admin"){
+         next();
+    }
+    else return res.status(404).json({message:"Unauthorized Access"});
+}

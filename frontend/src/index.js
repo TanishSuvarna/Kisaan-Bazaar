@@ -12,11 +12,7 @@ import SellProduct from "./components/SellProduct";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    {/* <LandingPage></LandingPage> */}
-    {/* <SellerDashboard></SellerDashboard> */}
-    <BrowserRouter>
-      <App></App>
-    </BrowserRouter>
+    <App/>
   </React.StrictMode>
 );
 
