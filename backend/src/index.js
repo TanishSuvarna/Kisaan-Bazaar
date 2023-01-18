@@ -4,9 +4,11 @@ import mongoose from 'mongoose'
 import path from 'path'
 import cors from 'cors'
 import userRouter from './routes/auth.js';
+import productRouter from './routes/products.js'
 import {fileURLToPath} from 'url';
 import {Server} from "socket.io";
 import http from "http";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -31,6 +33,7 @@ mongoose.connect(`mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO
 //   });
 
 app.use("/api",userRouter); //SignIn/SignUp Normal Users
+app.use("/api",productRouter);
 io.on("connect", socket => {
     socket.on("testing" , str => console.log(str));
     socket.on("updatedNumVal" , num => {

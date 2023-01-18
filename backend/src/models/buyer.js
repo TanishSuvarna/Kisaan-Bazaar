@@ -33,6 +33,10 @@ const buyerSchema = new mongoose.Schema({
     hash_password:{
       type:String,
       required:true
+    },
+    spent:{
+        type:String,
+        default:0
     } 
 },{timestamps:true});
 
