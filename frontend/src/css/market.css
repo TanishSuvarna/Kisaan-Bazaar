@@ -1,0 +1,64 @@
+.body{
+    height: 100%;
+    width: 100%;
+}
+
+.product-types img{
+    border-radius: 15px;
+    width: 200px;
+}
+
+.m-container .section-header{
+    display: flex;
+    align-items: center;
+}
+
+.m-container .section-header .title h1{
+    margin-left: 15px;
+    color: #485fa7;
+    padding-top: 4px;
+    margin-bottom: 0;
+}
+
+.m-container .section-header .thumbnail img{
+    border-radius: 50%;
+    width: 55px;
+    border: solid 1px;
+}
+
+.m-container .card .market-item .item-img img{
+    width: 320px;
+    height: 280px;
+    padding: 10px 0;
+    border-radius: 40px 0px;
+}
+
+.m-container .row1{
+    width: 85%;
+    margin: 5px 0 0 100px;
+    height: 550px;
+    display: flex;
+}
+
+.m-container .row1 .card{
+    align-items: center;
+}
+
+.m-container .item-content h6{
+    font-size: 20px;
+    font-style: italic;
+    margin: 5px;
+    color: darkgreen;
+}
+
+.m-container .item-content .bid-area{
+    display: flex;
+    padding: 5px 6px;
+    justify-content: space-between;
+}
+
+.m-container .item-content .countdown{
+    display: flex;
+    justify-content: space-around;
+}
+

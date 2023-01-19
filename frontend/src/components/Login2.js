@@ -33,7 +33,10 @@ function Login2({setisSignin, setisSignup, setcrossClicked}) {
       const payload = await axios.post(`/${query}/signin`, userInfo);
       localStorage.setItem("token" , payload.data.token);
       localStorage.setItem("user",JSON.stringify(payload.data.user));
-      if(query === "Buyer") localStorage.setItem("userType" , "Buyer");
+      if(query === "Buyer"){
+        localStorage.setItem("userType" , "Buyer");
+        navigate("buyer/market")
+      }
       else {
         localStorage.setItem("userType" , "Seller");
         navigate("/seller/profile")

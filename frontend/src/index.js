@@ -8,6 +8,7 @@ import { BrowserRouter } from "react-router-dom";
 import Sign from "./components/Sign";
 import SellerDashboard from "./components/SellerDashboard";
 import SellProduct from "./components/SellProduct";
+import Market from "./components/market.js/market";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
