@@ -9,6 +9,7 @@ import Sign from "./components/Sign";
 import SellerDashboard from "./components/SellerDashboard";
 import SellProduct from "./components/SellProduct";
 import Market from "./components/market.js/market";
+import CategoryPage from "./components/market.js/mcategory";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
