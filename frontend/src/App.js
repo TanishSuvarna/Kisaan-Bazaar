@@ -10,6 +10,7 @@ import LandingPage from './components/LandingPage.js'
 import { PrivateRoutes } from "./helpers/privateRoutes.js";
 import { SellerRoutes } from "./helpers/sellerRoutes.js";
 import { BuyerRoutes } from "./helpers/buyerRoutes";
+import Market from './components/market.js/market.js'
 function App(){
   // const [socket, setSocket] = useState(null);
   // const [num , setNum] = useState(0);
@@ -41,6 +42,7 @@ function App(){
             <Route path="*" element={<SellerProfile />}></Route>
             </Route> 
           </Route>
+          <Route path ="/buyer/market" element = {<Market/>}></Route>
           <Route path = "/" exact element={<LandingPage/>}/><Route/>
         </Routes>   
     </BrowserRouter>
