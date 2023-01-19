@@ -4,7 +4,7 @@ import productImg from "../img/corn.jpg";
 import { useState , useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { customInstance } from "../helpers/axios";
-const ProductDescription = () => {
+const ProductDescription = ({socket}) => {
   const [currProduct , setcurrProduct] = useState();
   const {id } = useParams();
   
@@ -20,6 +20,17 @@ const ProductDescription = () => {
       }}
     func()
   },[])
+  socket.off('productSold').on("productSold" , (product) => {
+    if(product._id === id ){
+        
+        setcurrProduct(prev => {
+          return {...prev ,bidEnded : true}
+        });
+    }
+  })
+  useEffect(() => {
+    console.log(currProduct);
+  },[currProduct])
   if(!currProduct) return <h1>Loading...</h1>
   return (
     <>
@@ -41,7 +52,7 @@ const ProductDescription = () => {
 
               <div className="product-seller-name">
                 <h1>
-                  Seller: <span>{currProduct.owner.firstName}</span>{" "}
+                  Seller: <span>{currProduct.owner.firstName} {currProduct.bidEnded ? <span style ={{color:'red'}}>SOLD!!</span>: ""}</span>{" "}
                 </h1>
               </div>
 
@@ -68,7 +79,7 @@ const ProductDescription = () => {
 
               <div className="product-bid-increaser">
                 <input type="number" />
-                <button>Bid</button>
+                <button disabled = {currProduct.bidEnded ? true : false}>Bid</button>
               </div>
             </div>
           </div>
