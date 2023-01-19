@@ -2,7 +2,7 @@ import Products from "../models/products.js"
 export const getActiveSellerProducts = async (req,res,next) => {
     const owner = req.user._id;
     try{
-        const allProducts = await Products.find({owner,bidEnded:false}).populate("currentBidder");
+        const allProducts = await Products.find({owner,bidEnded:false}).populate("currentBidder").populate("owner");
         // const activeProducts = allProducts.filter((product) => !product.bidEnded);
         res.status(201).json(allProducts);
         
@@ -13,7 +13,7 @@ export const getActiveSellerProducts = async (req,res,next) => {
 export const getInactiveSellerProducts = async (req,res,next) => {
     const owner = req.user._id;
     try{
-        const allProducts = await Products.find({owner,bidEnded:true}).populate("currentBidder");
+        const allProducts = await Products.find({owner,bidEnded:true}).populate("currentBidder").populate("owner");
         // const inactiveProducts = allProducts.filter((product) => product.bidEnded);
 
         res.status(201).json(allProducts);
@@ -55,7 +55,7 @@ export const addProduct = async (req,res,next) => {
 
 export const getActiveBuyerProducts = async (req,res,next) => {
     try{
-        const allProducts = await Products.find({bidEnded : false}).populate("currentBidder");
+        const allProducts = await Products.find({bidEnded : false}).populate("currentBidder").populate("owner");
         // const activeProducts = allProducts.filter((product) => product.bidEnded);
         res.status(201).json(allProducts);
         
@@ -65,7 +65,7 @@ export const getActiveBuyerProducts = async (req,res,next) => {
 }
 export const getInactiveBuyerProducts = async (req,res,next) => {
     try{
-        const allProducts = await Products.find({bidEnded:true}).populate("currentBidder");
+        const allProducts = await Products.find({bidEnded:true}).populate("currentBidder").populate("owner");
         // const inactiveProducts = allProducts.filter((product) => !product.bidEnded);
         res.status(201).json(allProducts);
         
@@ -76,7 +76,7 @@ export const getInactiveBuyerProducts = async (req,res,next) => {
 
 export const boughtProducts = async (req,res,next) => {
     try{
-        const allProducts = await Products.find({bidEnded : false , _id:req.user._id}).populate("currentBidder");
+        const allProducts = await Products.find({bidEnded : false , _id:req.user._id}).populate("currentBidder").populate("owner");
         // const bought = allProducts.filter((product) => product._id === req.user._id);
         res.status(201).json({allProducts});
     }catch(err){
@@ -89,7 +89,7 @@ export const getActiveProductsByCategory = async(req , res , next) => {
     const category = req.params.category;
 
     try{
-        const allProducts = await Products.find({bidEnded:false , name:category}).populate("owner");
+        const allProducts = await Products.find({bidEnded:false , name:category}).populate("owner").populate("currentBidder");;
         res.status(201).json({allProducts})
 
     }catch(err){

@@ -25,7 +25,7 @@ import {
 } from "mdb-react-ui-kit";
 import { useNavigate } from "react-router-dom";
 
-const Market = () => {
+const Market = ({socket}) => {
   
   const {category} = useParams();
   const[allProducts , setAllProducts ] = useState([]);
@@ -45,7 +45,18 @@ const Market = () => {
     
     func();
   },[])
-  
+  socket.off('productSold').on("productSold" , (product) => {
+    if(product.category === category){
+      let remov = allProducts.map((p) => {
+        if(p._id === product._id){
+          p.sold = true;
+        }
+        return p;
+      });
+      setAllProducts(remov);
+    }
+    
+  })
   return (
     <>
       <BuyerNavbar></BuyerNavbar>
@@ -95,15 +106,15 @@ const Market = () => {
                             <div className="amt">{product.quantity}</div>
                           </div>
                           <div style={{ color: "red" }}>
-                            <div className="buy">Hurry Up</div>
-                            <div className="buy">Buy now</div>
+                            <div className="buy">{product.sold ? "Sorry" : "Hurry Up"}</div>
+                            <div className="buy">{product.sold ? "Sold" : "And Buy"}</div>
                           </div>
                         </div>
                         <div className="countdown d-flex my-2">
                           <div className="timer">Timer</div>
                           <div className="total-bit">Current Bid {product.currentBid ? product.currentBid :  '0'} </div>
                         </div>
-                        <MDBBtn onClick = {() => navigate(`/buyer/market/product/${product._id}`)}style={{ margin: "8px 100px" }}>
+                        <MDBBtn disabled = {product.sold ? true : false} onClick = {() => navigate(`/buyer/market/product/${product._id}`)}style={{ margin: "8px 100px" }}>
                           Submit A Bid
                         </MDBBtn>
                       </div>
