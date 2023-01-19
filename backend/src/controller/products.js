@@ -76,11 +76,24 @@ export const getInactiveBuyerProducts = async (req,res,next) => {
 
 export const boughtProducts = async (req,res,next) => {
     try{
-        const allProducts = await Products.find({bidEnded : false}).populate("currentBidder");
-        const bought = allProducts.filter((product) => product._id === req.user._id);
-        res.status(201).json({bought});
+        const allProducts = await Products.find({bidEnded : false , _id:req.user._id}).populate("currentBidder");
+        // const bought = allProducts.filter((product) => product._id === req.user._id);
+        res.status(201).json({allProducts});
     }catch(err){
         console.log(err)
         res.status(400).json({message:"Something Went Wrong Please Try Again"})
+    }
+}
+
+export const getActiveProductsByCategory = async(req , res , next) => {
+    const {category} = req.body;
+
+    try{
+        const allProducts = await Products.find({bidEnded:false , category}).populate("currentBidder");
+        res.status(201).json({allProducts})
+
+    }catch(err){
+        console.log(err);
+        res.status(400).json({message:"Something Went Wrong"});
     }
 }
