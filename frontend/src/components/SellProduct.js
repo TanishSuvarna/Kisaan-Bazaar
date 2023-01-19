@@ -4,17 +4,46 @@ import SellProductForm from "./SellProductForm";
 import { useState, useEffect } from "react";
 import SellerNavbar from "./SellerNavbar";
 import { customInstance } from "../helpers/axios";
+import { useParams } from "react-router-dom";
 import productimg from "../img/wheat.jpg";
-const SellProduct = ({socket}) => {
+const SellProduct = ({ socket }) => {
   const [isCrossed, setisCrossed] = useState(false);
   const [isAddProduct, setisAddProduct] = useState(false);
   const [ongoing, setOngoing] = useState([]);
-  const [loading, setLoading] = useState(true);
+
+  const [allProducts, setAllProducts] = useState([]);
+
+  // socket.off('productSold').on("productSold" , (product) => {
+
+  //     setLoading(true);
+  //     let remov = allProducts.data.allProducts.map((p) => {
+  //       if(p._id === product._id){
+  //         p.bidEnded = true;
+  //       }
+  //       return p;
+  //     });
+  //     setAllProducts({data:{allProducts:remov}});
+
+  // })
+
+  socket.off("update_current_bid").on("update_current_bid", (product) => {
+    let remov = ongoing.map((p) => {
+      if (p._id === product.id) {
+        p.currentBid = product.inputValue;
+       
+        p.currentBidder.firstName = product.currentBidderName;
+      }
+      return p;
+    });
+    console.log(remov);
+    setOngoing(remov);
+  });
+
   const handleSell = (product) => {
-    socket.emit("productSold" , product)
-    const rem = ongoing.filter((p) => p._id !== product._id )
+    socket.emit("productSold", product);
+    const rem = ongoing.filter((p) => p._id !== product._id);
     setOngoing(rem);
-  }
+  };
   useEffect(() => {
     const func = async () => {
       const axios = customInstance();
@@ -24,9 +53,9 @@ const SellProduct = ({socket}) => {
     func();
   }, []);
   useEffect(() => {
-    setLoading(false);
+    console.log(ongoing);
   }, [ongoing]);
-  if (loading) return <h1>Loading...</h1>;
+
   return (
     <>
       <SellerNavbar />
@@ -40,7 +69,7 @@ const SellProduct = ({socket}) => {
             {ongoing.length > 0 &&
               ongoing.map((product, key) => {
                 return (
-                  <div className="product" key = {key}>
+                  <div className="product" key={key}>
                     <div
                       className="product-img-1"
                       style={{ backgroundImage: `url(${product.image})` }}
@@ -50,54 +79,27 @@ const SellProduct = ({socket}) => {
                       <div className="bid-info">
                         <div className="current-bid">
                           <p>Current Bid</p>
-                          <p>
-                            {product.currentBidder
-                              ? product.currentBidder.name
-                              : "None"}
-                          </p>
+                          <p>{product.currentBid}</p>
                         </div>
                         <div className="highest-bidder">
                           <p>Highest Bider</p>
-                          <p>{product.currentBid}</p>
+                          <p>
+                            {product.currentBidder
+                              ? product.currentBidder.firstName
+                              : "None"}
+                          </p>
                         </div>
                       </div>
                       <div className="sell-btn">
-                        <button onClick = {() => handleSell(product)}>Sell</button>
+                        <button onClick={() => handleSell(product)}>
+                          Sell
+                        </button>
                       </div>
                     </div>
                   </div>
                 );
               })}
           </div>
-
-          {/*           
-            <div className="product">
-                <div className="product-img"></div>
-                <div className="product-main-details">
-                <div className="product-name">
-                    <h1>Wheat</h1>
-                </div>
-                <div className="product-bid-details">
-
-                    <div>
-                        <p>Current bid</p>
-                        <p>$200.00</p>
-                    </div>
-                    <div className="seperator"></div>
-                    <div>
-                        <p>Highest bidder</p>
-                        <p>Name</p>
-                    </div>
-                </div>
-                <div className="sell-btn-div">
-                    <button >Sell Product</button>
-
-                </div>
-                </div>
-              
-         
-            
-          </div> */}
 
           <button
             className="add-product-btn"

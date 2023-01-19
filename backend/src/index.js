@@ -64,7 +64,7 @@ io.on("connect", (socket) => {
     } catch (error) {
       console.log(error);
     }
-    io.emit("update_current_bid", data.inputValue);
+    io.emit("update_current_bid", data);
   });
 });
 httpServer.listen(process.env.PORT || 5000, () => {

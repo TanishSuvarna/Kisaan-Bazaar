@@ -13,11 +13,13 @@ import Market from "./components/market.js/market";
 import CategoryPage from "./components/market.js/mcategory";
 import MarketNew from "./components/MarketNew";
 import BuyerCart from "./components/BuyerCart";
+import PrevAuction from "./components/PrevAuction";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <App></App>
+    
   </React.StrictMode>
 );
 
