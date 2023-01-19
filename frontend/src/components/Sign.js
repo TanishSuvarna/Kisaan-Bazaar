@@ -66,7 +66,12 @@ function Sign({setisSignin, setisSignup}) {
       const payload = await axios.post(`/${query}/signup`, userInfo);
       localStorage.setItem("token" , payload.data.token);
       localStorage.setItem("user",JSON.stringify(payload.data.user));
-      navigate("/seller/profile")
+      if(query === "Buyer") localStorage.setItem("userType" , "Buyer");
+      else {
+        localStorage.setItem("userType" , "Seller");
+        navigate("/seller/profile")
+      }
+      
     }catch{
       alert("Something Went Wrong");
     }

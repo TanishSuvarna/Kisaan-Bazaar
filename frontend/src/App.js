@@ -35,14 +35,13 @@ function App(){
   return (
     <BrowserRouter>
       <Routes>
-      <Route path = "/" exact element={<LandingPage/>}/><Route/>
       <Route element ={<PrivateRoutes/>}>
           <Route element = {<SellerRoutes/>}>
-          
-          <Route path="/seller/profile" element={<SellerProfile />}></Route>
-          <Route path="/seller/SellProduct" element={<SellProduct />}></Route>
-          </Route> 
+            <Route path="/seller/SellProduct" element={<SellProduct />}></Route>
+            <Route path="*" element={<SellerProfile />}></Route>
+            </Route> 
           </Route>
+          <Route path = "/" exact element={<LandingPage/>}/><Route/>
         </Routes>   
     </BrowserRouter>
   );

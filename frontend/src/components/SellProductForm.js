@@ -18,7 +18,7 @@ import {
 } from "mdb-react-ui-kit";
 import { customInstance } from "../helpers/axios";
 
-function SellProductForm() {
+function SellProductForm({setter ,setisCrossed , setisAddProduct}) {
   const [productInfo , setProductInfo] = useState({
     name:"",
     quantity:"",
@@ -39,12 +39,23 @@ function SellProductForm() {
     form.append('image', image);
     form.append('description', description);
     form.append('basePrice', basePrice);
-      const add = await axios.post("/seller/addProduct" , form);
+    const add = await axios.post("/seller/addProduct" , form);
+    console.log(add);
+    setter((prev) =>{
+      return [...prev , add.data.newProduct]
+    });
     }
     catch{
       return alert("Sorry Something Went Wrong");
     }
     alert("Product Added Success");
+    setProductInfo({name:"",
+    quantity:"",
+    basePrice:"",
+    description:"",
+    image:""})
+    setisCrossed(true);
+    setisAddProduct(true);
   }
   const handleChange= (e) => {
     setProductInfo((prev) => {

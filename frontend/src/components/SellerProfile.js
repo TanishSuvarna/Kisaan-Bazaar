@@ -1,8 +1,28 @@
 import "../css/SellerProfile.css";
 import React from "react";
+import { useState ,useEffect} from "react";
 import SellerNavbar from "./SellerNavbar";
 const SellerProfile = () => {
+   const [userProfile , setUserProfile] = useState({
+      name  : "",
+      email : "",
+      rating : "",
+      address:"",
+      state:"",
+    })
+    const [loading , setLoading] = useState(true);
+    useEffect(() => {
+      setUserProfile(() => {
+        return JSON.parse(localStorage.getItem("user"));
+      })
+    },[])
+useEffect(()=>{
+  setLoading(false);
+  console.log(userProfile)
+},[userProfile])
+if(loading) return <h1>Loading...</h1>
   return (
+   
     <>
     <SellerNavbar/>
       <div className="seller-profile-container">
@@ -18,13 +38,12 @@ const SellerProfile = () => {
                 </div>
                 <div>
                 
-              <p>Pratham Upadhyay</p>
-              <p>Pratham20@gmail.com</p>
+              <p>{userProfile.name}</p>
+              <p>{userProfile.email}</p>
               
-              <p>4.5</p>
+              <p>{userProfile.rating}</p>
               <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio,
-                aut?
+                {userProfile.address}
               </p>
                 </div>
            

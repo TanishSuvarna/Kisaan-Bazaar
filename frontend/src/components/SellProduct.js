@@ -1,13 +1,29 @@
 import React from "react";
 import "../css/SellProduct.css";
 import SellProductForm from "./SellProductForm";
-import { useState } from "react";
+import { useState , useEffect } from "react";
 import SellerNavbar from "./SellerNavbar";
+import { customInstance } from "../helpers/axios";
 const SellProduct = () => {
   const [isCrossed, setisCrossed] = useState(false);
   const [isAddProduct, setisAddProduct] = useState(false);
-
+  const [ongoing , setOngoing] = useState([]);
+  const [loading , setLoading] = useState(true)
+   useEffect(() => {
+      const func = async () => {
+        const axios = customInstance();
+        const data = await axios.get("/seller/activeProducts");
+        setOngoing([...data.data]);
+      }
+      func();
+    },[])
+    useEffect(()=>{
+      setLoading(false);
+      console.log(ongoing);
+    },[ongoing])
+    if(loading) return <h1>Loading...</h1>
   return (
+   
     <>
     <SellerNavbar/>
       <div className="sellProduct-main-container">
@@ -18,18 +34,21 @@ const SellProduct = () => {
           </h1>
 
           <div className="product-container">
-            <div className="product">
+            {
+            ongoing.length > 0 && ongoing.map((product) => {
+              return (
+                <div className="product">
               <div className="product-img product-img-1"></div>
               <div className="product-details">
-                <h1>Wheat</h1>
+                <h1>{product.name}</h1>
                 <div className="bid-info">
                   <div className="current-bid">
                     <p>Current Bid</p>
-                    <p>$200.00</p>
+                    <p>{product.currentBidder ? product.currentBidder.name : "None"}</p>
                   </div>
                   <div className="highest-bidder">
                     <p>Highest Bider</p>
-                    <p>Name</p>
+                    <p>{product.currentBid}</p>
                   </div>
                 </div>
                 <div className="sell-btn">
@@ -37,63 +56,13 @@ const SellProduct = () => {
                 </div>
               </div>
             </div>
-            <div className="product">
-              <div className="product-img product-img-2"></div>
-              <div className="product-details">
-                <h1>Corn</h1>
-                <div className="bid-info">
-                  <div className="current-bid">
-                    <p>Current Bid</p>
-                    <p>$200.00</p>
-                  </div>
-                  <div className="highest-bidder">
-                    <p>Highest Bider</p>
-                    <p>Name</p>
-                  </div>
-                </div>
-                <div className="sell-btn">
-                  <button>Sell</button>
-                </div>
-              </div>
-            </div>
-            <div className="product">
-              <div className="product-img product-img-1"></div>
-              <div className="product-details">
-                <h1>Wheat</h1>
-                <div className="bid-info">
-                  <div className="current-bid">
-                    <p>Current Bid</p>
-                    <p>$200.00</p>
-                  </div>
-                  <div className="highest-bidder">
-                    <p>Highest Bider</p>
-                    <p>Name</p>
-                  </div>
-                </div>
-                <div className="sell-btn">
-                  <button>Sell</button>
-                </div>
-              </div>
-            </div>
-            <div className="product">
-              <div className="product-img product-img-2"></div>
-              <div className="product-details">
-                <h1>Wheat</h1>
-                <div className="bid-info">
-                  <div className="current-bid">
-                    <p>Current Bid</p>
-                    <p>$200.00</p>
-                  </div>
-                  <div className="highest-bidder">
-                    <p>Highest Bider</p>
-                    <p>Name</p>
-                  </div>
-                </div>
-                <div className="sell-btn">
-                  <button>Sell</button>
-                </div>
-              </div>
-            </div>
+              )
+            }) 
+            
+            
+            
+            }
+            
           </div>
 
           {/*           
@@ -151,7 +120,7 @@ const SellProduct = () => {
               <div className="hamburger_lines"></div>
             </div>
           </div>
-          <SellProductForm></SellProductForm>
+          <SellProductForm setisCrossed= {setisCrossed} setisAddProduct = {setisAddProduct}setter = {setOngoing}></SellProductForm>
         </div>
       ) : (
         <div></div>
