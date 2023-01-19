@@ -100,8 +100,9 @@ function Sign({ setisSignin, setisSignup ,setcrossClicked}) {
             className="bg-white my-5 mx-auto"
             style={{ borderRadius: "1rem", maxWidth: "600px" }}
           >
-            <MDBCardBody className="p-5 w-100 d-flex flex-column">
-              <h2 className="fw-bold mb-2 text-center">Sign Up</h2>
+            <MDBCardBody className="px-5 py-4 w-100 d-flex flex-column h-90">
+            <h2 className="fw-bold mb-4 text-center" 
+                style={{color: 'dodgerblue', fontFamily: "system-ui", fontSize: '40px'}} >Sign Up</h2>
 
               <MDBCol md="6" className="mb-4">
                 <h6 className="fw-bold">I am: </h6>
@@ -194,7 +195,7 @@ function Sign({ setisSignin, setisSignup ,setcrossClicked}) {
                   Select Region:
                   {/* <h6 className='fw-normal text-start me-2' >Select your region</h6> */}
                   <select
-                    className="mb-4 py-2 px-4 ms-3 square border border-grey"
+                    className="mb-1 py-2 px-4 ms-3 square border border-grey"
                     value={userInfo.state}
                     name="state"
                     onChange={handleChange}
@@ -235,6 +236,25 @@ function Sign({ setisSignin, setisSignup ,setcrossClicked}) {
               <MDBBtn size="lg" type="submit">
                 Submit
               </MDBBtn>
+
+              <div>
+                  <hr />
+                  <p className="mb-0 text-center">
+                    Already have an account?{" "}
+                    <a
+                      class="text-dark-50 fw-bold "
+                      style={{cursor: 'pointer'}}
+                      onClick={() => {
+                        setisSignin(true);
+                        setisSignup(false);
+                        setcrossClicked(false);
+                        alert("Welcome to Login");
+                      }}
+                    >
+                      Login
+                    </a>
+                  </p>
+                </div>
             </MDBCardBody>
           </MDBCard>
         </MDBRow>

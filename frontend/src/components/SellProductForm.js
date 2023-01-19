@@ -80,7 +80,7 @@ function SellProductForm({ setter, setisCrossed, setisAddProduct }) {
   };
   return (
     <MDBContainer fluid>
-      <MDBRow className="d-flex justify-content-center align-items-center">
+      <MDBRow className="d-flex justify-content-center">
         <MDBCol lg="9" className="px-4">
           <h1 class="text-white mb-2">Add Product</h1>
 
