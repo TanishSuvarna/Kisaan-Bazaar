@@ -12,6 +12,7 @@ import ProductDescription from "./components/ProductDescription";
 import Market from "./components/market.js/market";
 import CategoryPage from "./components/market.js/mcategory";
 import MarketNew from "./components/MarketNew";
+import BuyerCart from "./components/BuyerCart";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
