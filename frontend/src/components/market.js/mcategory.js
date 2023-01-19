@@ -23,6 +23,7 @@ const CategoryPage = () => {
         <h1 className="text-danger fw-bold text-center mb-5">
           Welcome to Market Page
         </h1>
+        
         <div className="market">
           <MDBContainer>
             <div className="product-types mb-5">

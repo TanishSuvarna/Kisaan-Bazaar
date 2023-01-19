@@ -32,6 +32,7 @@
     margin: 5px 0 0 80px;
     height: auto;
     display: flex;
+    gap: 3%;
 }
 
 .category-container .row1 .card{
@@ -47,7 +48,8 @@
 
 .category-container .card h3{
     align-items: center;
-    font-style: italic;
+    
+    color: black;
 }
 
 .marker-main-container{
