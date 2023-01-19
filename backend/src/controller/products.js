@@ -32,17 +32,16 @@ export const addProduct = async (req,res,next) => {
     //     parentID : req.body.parentID,
     //     categoryImage : req.file ? process.env.API + "/public" + "/" + req.file.filename : ""
     // }
-    const {name , quantity , basePrice ,description, numberOfDaysToAdd} = req.body;
-    if(!name || !quantity  || !basePrice || !description ) return res.status(400).json({message:"Something Went Wrong"});
+    const {name , quantity , basePrice ,description, numberOfDaysToAdd , category} = req.body;
+    if(!name || !quantity  || !basePrice || !description  || !category) return res.status(400).json({message:"Something Went Wrong"});
     const AuctionStartTime = new Date();
-    console.log(AuctionStartTime);
     const AuctionEndTime = new Date(AuctionStartTime.setDate(parseInt(AuctionStartTime.getDate()) + numberOfDaysToAdd ? parseInt(numberOfDaysToAdd) : 1));
-    console.log(AuctionEndTime);
     const image =  req.file ? process.env.API + "/public" + "/" + req.file.filename : "";
     try{
-        const newProduct = new Products({name , quantity ,owner , basePrice ,description, AuctionStartTime , AuctionEndTime ,image })
+        const newProduct = new Products({name , quantity ,owner , basePrice ,description , AuctionEndTime ,image ,category })
         newProduct.save((err , data) => {
             if(err){
+                console.log("heyyy")
                 res.status(400).json({err});
             }
             else res.status(201).json({newProduct});

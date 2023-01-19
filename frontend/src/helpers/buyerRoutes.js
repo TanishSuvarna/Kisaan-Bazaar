@@ -10,6 +10,7 @@ export const BuyerRoutes = () => {
         const axios = customInstance();
         const f = async() => {
             try{
+                console.log("here");
                 await axios.post("/buyer/verify");
                 
                 setOk(true);

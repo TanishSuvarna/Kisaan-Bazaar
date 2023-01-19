@@ -16,13 +16,13 @@ export const SellerRoutes = () => {
                 setLoading(false);
             }
             catch(err){
+                console.log("false")
                 setLoading(false);
-                
             }
         }
         f();
     },[])
     if(loading) return <h1>Loading...</h1>
-    return ok ? <Outlet/> :  <Navigate to ="/"/>
+    return ok ? <Outlet/> :  <Navigate to ="/buyer/profile"/>
 } 
 

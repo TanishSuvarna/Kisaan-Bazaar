@@ -7,6 +7,7 @@ import coffee from '../../img/coffee.jpg';
 import nuts from '../../img/nuts.jpg';
 import oil from '../../img/oil.jpg';
 import {Link} from 'react-scroll';
+import BuyerNavbar from '../BuyerNavbar';
 import {
     MDBCard,
     MDBContainer,
@@ -25,6 +26,7 @@ const Market = () => {
     };
 
     return (
+        
         <Fragment>
             <h1 className='text-danger fw-bold text-center mb-5'>Welcome to Market Page</h1>
             <div className='market'>

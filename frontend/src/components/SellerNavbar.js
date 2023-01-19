@@ -21,8 +21,11 @@ const SellerNavbar = () => {
                 <li className="dash-nav-links">Sell Products</li>
               </Link>
 
-              <li className="dash-nav-links">Ongoing Auctions</li>
+
               <li className="dash-nav-links">Previous Auctions</li>
+              <Link to ="/" onClick={() => localStorage.clear()}>
+                  <li className="dash-nav-links">Logout</li>
+              </Link>
             </div>
           </div>
         </div>
