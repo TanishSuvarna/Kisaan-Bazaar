@@ -47,7 +47,7 @@ io.on("connect", (socket) => {
       await Products.findOneAndUpdate({ _id: product._id }, { bidEnded: true });
       await Seller.findOneAndUpdate(
         { _id: product.owner._id },
-        { earnings: product.owner.earnings + product.currentBid }
+        { earnings: parseInt(product.owner.earnings) + parseInt(product.currentBid)}
       );
     } catch (err) {
       console.log(err);
@@ -64,7 +64,7 @@ io.on("connect", (socket) => {
     } catch (error) {
       console.log(error);
     }
-    io.emit("update_current_bid", data.inputValue);
+    io.emit("update_current_bid", data);
   });
 });
 httpServer.listen(process.env.PORT || 5000, () => {

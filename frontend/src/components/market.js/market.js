@@ -47,7 +47,6 @@ const Market = ({socket}) => {
   },[])
   useEffect(() => {
     setLoading(false);
-    console.log(allProducts);
   },[allProducts])
   socket.off('productSold').on("productSold" , (product) => {
     if(product.name === category && allProducts.data && allProducts.data.allProducts && allProducts.data.allProducts.length > 0){
