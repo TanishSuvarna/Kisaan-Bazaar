@@ -29,6 +29,7 @@ const Market = ({socket}) => {
   
   const {category} = useParams();
   const[allProducts , setAllProducts ] = useState([]);
+  const [loading,setLoading] = useState(true);
   const navigate = useNavigate();
   useEffect(()=>{
     const axios = customInstance();
@@ -36,7 +37,6 @@ const Market = ({socket}) => {
       try{
         const activeProducts = await axios.get(`/buyer/activeProducts/${category}`);
         setAllProducts(activeProducts);
-        console.log(activeProducts)
       }
       catch(err){
         console.log(err)
@@ -45,18 +45,23 @@ const Market = ({socket}) => {
     
     func();
   },[])
+  useEffect(() => {
+    setLoading(false);
+    console.log(allProducts);
+  },[allProducts])
   socket.off('productSold').on("productSold" , (product) => {
-    if(product.category === category){
-      let remov = allProducts.map((p) => {
+    if(product.name === category && allProducts.data && allProducts.data.allProducts && allProducts.data.allProducts.length > 0){
+      setLoading(true);
+      let remov = allProducts.data.allProducts.map((p) => {
         if(p._id === product._id){
-          p.sold = true;
+          p.bidEnded = true;
         }
         return p;
       });
-      setAllProducts(remov);
+      setAllProducts({data:{allProducts:remov}});
     }
-    
   })
+  if(loading) return <h1>Loading...</h1>
   return (
     <>
       <BuyerNavbar></BuyerNavbar>
@@ -106,15 +111,15 @@ const Market = ({socket}) => {
                             <div className="amt">{product.quantity}</div>
                           </div>
                           <div style={{ color: "red" }}>
-                            <div className="buy">{product.sold ? "Sorry" : "Hurry Up"}</div>
-                            <div className="buy">{product.sold ? "Sold" : "And Buy"}</div>
+                            <div className="buy">{product.bidEnded ? "Sorry" : "Hurry Up"}</div>
+                            <div className="buy">{product.bidEnded ? "Sold" : "And Buy"}</div>
                           </div>
                         </div>
                         <div className="countdown d-flex my-2">
                           <div className="timer">Timer</div>
                           <div className="total-bit">Current Bid {product.currentBid ? product.currentBid :  '0'} </div>
                         </div>
-                        <MDBBtn disabled = {product.sold ? true : false} onClick = {() => navigate(`/buyer/market/product/${product._id}`)}style={{ margin: "8px 100px" }}>
+                        <MDBBtn disabled = {product.bidEnded ? true : false} onClick = {() => navigate(`/buyer/market/product/${product._id}`)}style={{ margin: "8px 100px" }}>
                           Submit A Bid
                         </MDBBtn>
                       </div>

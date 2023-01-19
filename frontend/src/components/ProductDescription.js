@@ -68,6 +68,17 @@ const ProductDescription = ({ socket }) => {
     const inputBid = e.target.value;
     setinputValue(inputBid);
   };
+  socket.off('productSold').on("productSold" , (product) => {
+    if(product._id === id ){
+        
+        setcurrProduct(prev => {
+          return {...prev ,bidEnded : true}
+        });
+    }
+  })
+  useEffect(() => {
+    console.log(currProduct);
+  },[currProduct])
   if (!currProduct) return <h1>Loading...</h1>;
   return (
     <>
@@ -87,7 +98,7 @@ const ProductDescription = ({ socket }) => {
 
               <div className="product-seller-name">
                 <h1>
-                  Seller: <span>{currProduct.owner.firstName}</span>{" "}
+                  Seller: <span>{currProduct.owner.firstName} {currProduct.bidEnded ? <span style ={{color:'red'}}>SOLD!!</span>: ""}</span>{" "}
                 </h1>
               </div>
 
@@ -123,12 +134,7 @@ const ProductDescription = ({ socket }) => {
                   // placeholder={currProduct.basePrice}
                   type="number"
                 />
-                <button
-                  disabled={isbidGreater ? false : true}
-                  onClick={updateCurrentBid}
-                >
-                  Bid
-                </button>
+                <button  disabled = {currProduct.bidEnded || isbidGreater ? true : false} onClick={updateCurrentBid}>Bid</button>
               </div>
             </div>
           </div>
