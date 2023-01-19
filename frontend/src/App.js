@@ -12,6 +12,7 @@ import { SellerRoutes } from "./helpers/sellerRoutes.js";
 import { BuyerRoutes } from "./helpers/buyerRoutes";
 import BuyerProfile from "./components/BuyerProfile";
 import Market from "./components/market.js/market.js";
+import CategoryPage from "./components/market.js/mcategory";
 function App() {
   // const [socket, setSocket] = useState(null);
   // const [num , setNum] = useState(0);
@@ -44,7 +45,7 @@ function App() {
           </Route>
         </Route>
         <Route path="/buyer" element={<BuyerRoutes />}>
-          <Route path="/buyer/market" element={<Market />}></Route>
+          <Route path="/buyer/market" element={<CategoryPage />}></Route>
           <Route path="*" element={<BuyerProfile />}></Route>
         </Route>
         <Route path="/" exact element={<LandingPage />} />
