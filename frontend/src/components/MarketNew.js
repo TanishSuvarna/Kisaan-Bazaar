@@ -16,8 +16,15 @@ import orange from "../img/orange.jpg";
 
 import potatos from "../img/potatos.jpg";
 import BuyerNavbar from "./BuyerNavbar";
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 const MarketNew = () => {
+  const navigate = useNavigate();
+  const handleClick = (e) => {
+    navigate(`/buyer/market/${e.target.getAttribute("name")}`)
+  } 
   return (
+    
     <>
 
 
@@ -40,35 +47,40 @@ const MarketNew = () => {
             <div className="market-products-div">
               <div
                 className="market-product"
+                
                 style={{ backgroundImage: `url(${wheat})`, content: "" }}
               >
                 <div>
-                  <h1>wheat</h1>
-                  
+                  <h1 name = "Wheat"
+                onClick = {handleClick}>wheat</h1>
                 </div>
               </div>
               <div
                 className="market-product"
+                
                 style={{ backgroundImage: `url(${rice})` }}
               >
                 <div>
-                  <h1>Rice</h1>
+                  <h1 name = "Rice"
+                onClick = {handleClick}>Rice</h1>
                 </div>
               </div>
-              <div
-                className="market-product"
+              <div className="market-product"
                 style={{ backgroundImage: `url(${jowar})` }}
               >
                 <div>
-                  <h1>Jowar</h1>
+                  <h1 onClick = {handleClick} className="market-product"
+                name = "Jowar">Jowar</h1>
                 </div>
               </div>
               <div
                 className="market-product"
+                
                 style={{ backgroundImage: `url(${corn})` }}
               >
                 <div>
-                  <h1>Corn</h1>
+                  <h1 name = "Corn"
+                onClick = {handleClick}>Corn</h1>
                 </div>
               </div>
             </div>
@@ -84,7 +96,8 @@ const MarketNew = () => {
                 style={{ backgroundImage: `url(${potatos})`, content: "" }}
               >
                 <div>
-                  <h1>Potatos</h1>
+                  <h1 name = "Tomato"
+                onClick = {handleClick}>Potato</h1>
                 </div>
               </div>
               <div
@@ -92,7 +105,8 @@ const MarketNew = () => {
                 style={{ backgroundImage: `url(${tomatos})` }}
               >
                 <div>
-                  <h1>Tomatos</h1>
+                  <h1 name = "Methi"
+                onClick = {handleClick}>Tomato</h1>
                 </div>
               </div>
               <div
@@ -100,7 +114,8 @@ const MarketNew = () => {
                 style={{ backgroundImage: `url(${carrot})` }}
               >
                 <div>
-                  <h1>Carrot</h1>
+                  <h1 name = "Sprouts"
+                onClick = {handleClick}>Carrot</h1>
                 </div>
               </div>
               <div
@@ -108,7 +123,8 @@ const MarketNew = () => {
                 style={{ backgroundImage: `url(${peas})` }}
               >
                 <div>
-                  <h1>Peas</h1>
+                  <h1 name = "LadyFinger"
+                onClick = {handleClick}>Peas</h1>
                 </div>
               </div>
             </div>
@@ -124,11 +140,15 @@ const MarketNew = () => {
                 style={{ backgroundImage: `url(${banana})`, content: "" }}
               >
                 <div>
+                  <h1 name = "Banana"
+                onClick = {handleClick}>wheat</h1>
                   <h1>Banana</h1>
                 </div>
               </div>
               <div
                 className="market-product"
+                name = "Watermelon"
+                onClick = {handleClick}
                 style={{ backgroundImage: `url(${apple})` }}
               >
                 <div>
@@ -140,7 +160,7 @@ const MarketNew = () => {
                 style={{ backgroundImage: `url(${orange})` }}
               >
                 <div>
-                  <h1>Orange</h1>
+                  <h1>Jowar</h1>
                 </div>
               </div>
               <div
@@ -148,7 +168,8 @@ const MarketNew = () => {
                 style={{ backgroundImage: `url(${kiwi})` }}
               >
                 <div>
-                  <h1>Kiwi</h1>
+                  <h1 name = "Custard Apple"
+                onClick = {handleClick}>kiwi</h1>
                 </div>
               </div>
             </div>

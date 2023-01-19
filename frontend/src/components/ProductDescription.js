@@ -1,8 +1,26 @@
 import React from "react";
 import "../css/ProductDescription.css";
 import productImg from "../img/corn.jpg";
-
+import { useState , useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { customInstance } from "../helpers/axios";
 const ProductDescription = () => {
+  const [currProduct , setcurrProduct] = useState();
+  const {id } = useParams();
+  
+  useEffect(() => {
+    const func = async () => { 
+    const axios = customInstance();
+      try{
+        const product = await axios.get(`/buyer/activeProducts/product/${id}`);
+        setcurrProduct(product.data.allProducts[0]);
+        console.log(product.data.allProducts[0])
+      }catch(err){
+        alert("Something Went Wrong PLease Try Again Later");
+      }}
+    func()
+  },[])
+  if(!currProduct) return <h1>Loading...</h1>
   return (
     <>
       <div className="main-product-container">
@@ -10,22 +28,20 @@ const ProductDescription = () => {
           <div className="main-product">
             <div
               className="main-product-image"
-              style={{ backgroundImage: `url(${productImg})` }}
+              style={{ backgroundImage: `url(${currProduct.image})` }}
             ></div>
 
             <div className="main-product-info">
               <div className="product-name">
                 <h1>Wheat</h1>
                 <p className="product-description">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Assumenda a consequuntur necessitatibus nesciunt, itaque
-                  deleniti delectus aperiam facere minima iusto?
+                  {currProduct.description}
                 </p>
               </div>
 
               <div className="product-seller-name">
                 <h1>
-                  Seller: <span>Pratham Upadhyay</span>{" "}
+                  Seller: <span>{currProduct.owner.firstName}</span>{" "}
                 </h1>
               </div>
 
@@ -33,20 +49,20 @@ const ProductDescription = () => {
                 <h1>Time left:</h1>
                 <div className="time-holder">
                   <div>
-                    <h1>2</h1> <p>Days</p>
+                    <h1>2</h1> <p>{}</p>
                   </div>
                   <div>
-                    <h1>2</h1> <p>hrs</p>
+                    <h1>2</h1> <p>{}</p>
                   </div>
                   <div>
-                    <h1>2</h1> <p>minutes</p>
+                    <h1>2</h1> <p>{}</p>
                   </div>
                 </div>
               </div>
 
               <div className="product-current-bid">
                 <h1>
-                  Current Bid: <span>1,000.0$</span>
+                  Current Bid: <span>{currProduct.currentBid}</span>
                 </h1>
               </div>
 
