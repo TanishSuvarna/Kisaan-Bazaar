@@ -3,6 +3,7 @@ import "../css/ProductDescription.css";
 import productImg from "../img/corn.jpg";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import ReactStars from "react-rating-stars-component";
 import { io } from "socket.io-client";
 import { customInstance } from "../helpers/axios";
 
@@ -23,7 +24,8 @@ const ProductDescription = ({ socket }) => {
     const data = {
       inputValue: inputValue,
       id: id,
-      currentBidder:JSON.parse(localStorage.user)._id,
+      currentBidder: JSON.parse(localStorage.user)._id,
+      currentBidderName: JSON.parse(localStorage.user).firstName,
     };
     if (socket) {
       socket.emit("send_current_bid", data);
@@ -42,9 +44,9 @@ const ProductDescription = ({ socket }) => {
 
   useEffect(() => {
     socket.off("update_current_bid").on("update_current_bid", (data) => {
-      setinputValue(data);
-      setcurrBid(data);
-      console.log("hello" + data);
+      setinputValue(data.inputValue);
+      setcurrBid(data.inputValue);
+      console.log("hello" + data.inputValue);
     });
   }, [socket]);
 
@@ -68,21 +70,21 @@ const ProductDescription = ({ socket }) => {
     const inputBid = e.target.value;
     setinputValue(inputBid);
   };
-  socket.off('productSold').on("productSold" , (product) => {
-    if(product._id === id ){
-        
-        setcurrProduct(prev => {
-          return {...prev ,bidEnded : true}
-        });
+  socket.off("productSold").on("productSold", (product) => {
+    if (product._id === id) {
+      setcurrProduct((prev) => {
+        return { ...prev, bidEnded: true };
+      });
     }
-  })
+  });
   useEffect(() => {
     console.log(currProduct);
-  },[currProduct])
+  }, [currProduct]);
   if (!currProduct) return <h1>Loading...</h1>;
   return (
     <>
       <div className="main-product-container">
+        <div className="product-back-lines"></div>
         <div className="main-product-wrapper">
           <div className="main-product">
             <div
@@ -93,15 +95,37 @@ const ProductDescription = ({ socket }) => {
             <div className="main-product-info">
               <div className="product-name">
                 <h1>Wheat</h1>
-                <p className="product-description">{currProduct.description}</p>
               </div>
-
-              <div className="product-seller-name">
+              <div className="product-description">
                 <h1>
-                  Seller: <span>{currProduct.owner.firstName} {currProduct.bidEnded ? <span style ={{color:'red'}}>SOLD!!</span>: ""}</span>{" "}
+                  Product Description:{" "}
+                  <span className="">{currProduct.description}</span>
                 </h1>
               </div>
-
+              <div className="product-seller-name">
+                <h1>
+                  Seller:{" "}
+                  <span>
+                    {currProduct.owner.firstName}{" "}
+                    {currProduct.bidEnded ? (
+                      <span style={{ color: "red" }}>SOLD!!</span>
+                    ) : (
+                      ""
+                    )}
+                  </span>{" "}
+                </h1>
+              </div>
+              <div className="product-seller-rating">
+                <h1>Rating: </h1>
+                <ReactStars
+                  count={5}
+                  size={24}
+                  // value ={parseInt(product.owner.rating)}
+                  emptyIcon={<i className="far fa-star"></i>}
+                  fullIcon={<i className="fa fa-star"></i>}
+                  activeColor="#ffd700"
+                />
+              </div>
               <div className="product-bid-time-left">
                 <h1>Time left:</h1>
                 <div className="time-holder">
@@ -134,7 +158,14 @@ const ProductDescription = ({ socket }) => {
                   // placeholder={currProduct.basePrice}
                   type="number"
                 />
-                <button  disabled = {currProduct.bidEnded || !isbidGreater ? true : false} onClick={updateCurrentBid}>Bid</button>
+                <button
+                  disabled={
+                    currProduct.bidEnded || !isbidGreater ? true : false
+                  }
+                  onClick={updateCurrentBid}
+                >
+                  Bid
+                </button>
               </div>
             </div>
           </div>
