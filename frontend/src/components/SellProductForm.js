@@ -17,7 +17,9 @@ import {
   MDBFile,
 } from "mdb-react-ui-kit";
 import { customInstance } from "../helpers/axios";
-
+const grains = ["Wheat" , "Jowar" , "Rice" , "Corn"];
+const vegetables = ["Tomato" , "LadyFinger" , "Methi" , "Sprouts"];
+const fruits = ["Banana" , "Watermelon" , "Apple" , "Custard Apple"];
 function SellProductForm({setter ,setisCrossed , setisAddProduct}) {
   const [productInfo , setProductInfo] = useState({
     name:"",
@@ -25,18 +27,20 @@ function SellProductForm({setter ,setisCrossed , setisAddProduct}) {
     basePrice:"",
     description:"",
     image:"",
+    category:"Vegetables"
   })
   const handleSubmit = async (e) => {
     e.stopPropagation();
     e.preventDefault();
-    const{name , quantity , image , description , basePrice} = productInfo;
-    if(!name || !quantity || !description || !basePrice) return alert("Please Enter Valid Details");
+    const{name , quantity , image , description , basePrice ,category} = productInfo;
+    if(!name || !quantity || !description || !basePrice || !category) return alert("Please Enter Valid Details");
     try{
       const axios = customInstance()
       const form = new FormData();
     form.append('name', name);
     form.append('quantity', quantity);
     form.append('image', image);
+    form.append('category', category);
     form.append('description', description);
     form.append('basePrice', basePrice);
     const add = await axios.post("/seller/addProduct" , form);
@@ -72,19 +76,45 @@ function SellProductForm({setter ,setisCrossed , setisAddProduct}) {
           
           <MDBCard>
             <form onSubmit={handleSubmit}>
-            <MDBCardBody className="px-4">
+            
               <MDBRow className="align-items-center pt-4 pb-3">
                 <MDBCol md="3" className="ps-5">
-                  <h6 className="mb-0">Product name</h6>
+                  <h6  className="mb-0">Category name</h6>
                 </MDBCol>
 
                 <MDBCol md="5" className="pe-5">
-                  <MDBInput label="Name" name = "name" value = {productInfo.name} onChange ={handleChange} size="lg" id="form1" type="text" />
+                    <select value = {productInfo.category} onChange ={handleChange} name="category">
+                      <option value="Vegetables">Vegetables</option>
+                      <option value="Grains">Grains</option>
+                      <option value="Fruits">Fruits</option>
+                    </select>
                 </MDBCol>
               </MDBRow>
 
               <hr className="mx-n3" />
+              <MDBRow className="align-items-center pt-4 pb-3">
+                <MDBCol md="3" className="ps-5">
+                  <h6  className="mb-0">Product name</h6>
+                </MDBCol>
 
+                <MDBCol md="5" className="pe-5">
+                    <select value = {productInfo.name} onChange ={handleChange} name="name">
+                      {productInfo.category === "Vegetables" && vegetables.map((vegetable , index) => (
+                          <option key = {index} value = {vegetable}>{vegetable}</option>
+                        ))}
+                        {productInfo.category === "Grains" && grains.map((grain , index) => (
+                          <option key = {index} value = {grain}>{grain}</option>
+                        ))}
+                        {productInfo.category === "Fruits" && fruits.map((fruit , index) => (
+                          <option key = {index} value = {fruit}>{fruit}</option>
+                        ))}
+                    </select>
+                </MDBCol>
+              </MDBRow>
+              <MDBCardBody className="px-4">
+              
+
+              <hr className="mx-n3" />
               <MDBRow className="align-items-center pt-4 pb-3">
                 <MDBCol md="3" className="ps-5">
                   <h6 className="mb-0">Base Price(in Rs.)</h6>

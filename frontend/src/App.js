@@ -10,6 +10,7 @@ import LandingPage from './components/LandingPage.js'
 import { PrivateRoutes } from "./helpers/privateRoutes.js";
 import { SellerRoutes } from "./helpers/sellerRoutes.js";
 import { BuyerRoutes } from "./helpers/buyerRoutes";
+import BuyerProfile from "./components/BuyerProfile";
 import Market from './components/market.js/market.js'
 function App(){
   // const [socket, setSocket] = useState(null);
@@ -37,12 +38,15 @@ function App(){
     <BrowserRouter>
       <Routes>
       <Route element ={<PrivateRoutes/>}>
-          <Route element = {<SellerRoutes/>}>
+          <Route path = "/seller" element = {<SellerRoutes/>}>
             <Route path="/seller/SellProduct" element={<SellProduct />}></Route>
             <Route path="*" element={<SellerProfile />}></Route>
             </Route> 
           </Route>
-          <Route path ="/buyer/market" element = {<Market/>}></Route>
+          <Route path = "buyer" element={<BuyerRoutes/>}>
+            <Route path ="/buyer/market" element = {<Market/>}></Route>
+            <Route path ="*" element = {<BuyerProfile/>}></Route>
+          </Route>
           <Route path = "/" exact element={<LandingPage/>}/><Route/>
         </Routes>   
     </BrowserRouter>

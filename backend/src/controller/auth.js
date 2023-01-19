@@ -74,7 +74,6 @@ export const signUpSeller = async(req,res,next) => {
                                     
         const savedUser = await newUser.save();
         const token = generateJWTToken(savedUser._id, "seller");
-        const { _id,fullName } = savedUser;
         if(!savedUser) return res.status(400).json({message:"Something Went Wrong ! Please try again"});
             return res.status(201).json({token , user : savedUser});
         });
@@ -112,7 +111,7 @@ export const signInBuyer = async (req,res,next) =>{
     if(user){
         const isPassword = await user.authenticate(password);
         if(isPassword){
-            const token =  generateJWTToken(user._id , "seller");
+            const token =  generateJWTToken(user._id , "buyer");
             if(token){
                 res.status(201).json({token , user});
             }

@@ -35,7 +35,7 @@ function Login2({setisSignin, setisSignup, setcrossClicked}) {
       localStorage.setItem("user",JSON.stringify(payload.data.user));
       if(query === "Buyer"){
         localStorage.setItem("userType" , "Buyer");
-        navigate("buyer/market")
+        navigate("buyer/profile")
       }
       else {
         localStorage.setItem("userType" , "Seller");
