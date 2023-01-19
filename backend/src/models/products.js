@@ -1,12 +1,15 @@
 import mongoose from 'mongoose'
-import bcrypt from 'bcrypt'
 const productSchema = new mongoose.Schema({
-    productName:{
+    name:{
         type:String,
         trim:true,
         required:true
     },
-    productOwner:{
+    quantity:{
+        type : Number,
+        required:true
+    },
+    owner:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Seller",
         required:true
@@ -19,13 +22,9 @@ const productSchema = new mongoose.Schema({
         type:String,
         default:0
     },
-    currentBidWinner:{
+    currentBidder:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Buyer"
-    },
-    AuctionStartTime:{
-        type:Date,
-        required:true
     },
     AuctionEndTime:{
         type:Date,
@@ -34,27 +33,17 @@ const productSchema = new mongoose.Schema({
     bidEnded:{
         type:Boolean,
         default:false
+    },
+    description:{
+        type:String,
+        required:true
+    },
+    image:{
+        type:String,
+        
     }
-    
 },{timestamps:true});
 
-buyerSchema.virtual("fullName")
-.get(function () {return `${this.firstName} ${this.lastName}`});
 
-//Create Hash For The Password On Receiving And Store it in Database
-
-// userSchema.virtual("password")
-// .set(function(){
-//     bcrypt.hash(password , 10 , function (err , hash){
-//         this.hash_password = hash;
-//     }); 
-// })
-
-//Verify Password
-buyerSchema.methods = {
-    authenticate:async function (password){
-        return await bcrypt.compare(password, this.hash_password);
-    }
-}
 
 export default mongoose.model("Product", productSchema);

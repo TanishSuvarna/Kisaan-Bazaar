@@ -64,10 +64,10 @@ function Sign({ setisSignin, setisSignup }) {
     try {
       const axios = customInstance();
       const payload = await axios.post(`/${query}/signup`, userInfo);
-      localStorage.setItem("token", payload.data.token);
-      localStorage.setItem("user", JSON.stringify(payload.data.user));
-      navigate("/products")
-    } catch {
+      localStorage.setItem("token" , payload.data.token);
+      localStorage.setItem("user",JSON.stringify(payload.data.user));
+      navigate("/seller/profile")
+    }catch{
       alert("Something Went Wrong");
     }
     setUserInfo({

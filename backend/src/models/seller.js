@@ -35,8 +35,13 @@ const sellerSchema = new mongoose.Schema({
       required:true
     },
     rating:{
-        
-    } 
+        type:String,
+        default:5
+    },
+    earnings:{
+        type:String,
+        default:0
+    }
 },{timestamps:true});
 
 sellerSchema.virtual("fullName")
@@ -57,5 +62,6 @@ sellerSchema.methods = {
         return await bcrypt.compare(password, this.hash_password);
     }
 }
+
 
 export default mongoose.model("Seller",sellerSchema);
