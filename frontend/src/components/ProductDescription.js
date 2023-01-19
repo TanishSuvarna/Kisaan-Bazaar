@@ -134,7 +134,7 @@ const ProductDescription = ({ socket }) => {
                   // placeholder={currProduct.basePrice}
                   type="number"
                 />
-                <button  disabled = {currProduct.bidEnded || isbidGreater ? true : false} onClick={updateCurrentBid}>Bid</button>
+                <button  disabled = {currProduct.bidEnded || !isbidGreater ? true : false} onClick={updateCurrentBid}>Bid</button>
               </div>
             </div>
           </div>

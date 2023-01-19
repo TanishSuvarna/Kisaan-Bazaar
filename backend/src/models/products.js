@@ -45,6 +45,10 @@ const productSchema = new mongoose.Schema({
     category:{
         type:String,
         required:true
+    },
+    rated:{
+        type:Boolean,
+        default : false
     }
 },{timestamps:true});
 

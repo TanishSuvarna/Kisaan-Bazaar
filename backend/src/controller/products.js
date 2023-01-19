@@ -1,4 +1,5 @@
 import Products from "../models/products.js"
+import Seller from "../models/seller.js";
 export const getActiveSellerProducts = async (req,res,next) => {
     const owner = req.user._id;
     try{
@@ -76,7 +77,7 @@ export const getInactiveBuyerProducts = async (req,res,next) => {
 
 export const boughtProducts = async (req,res,next) => {
     try{
-        const allProducts = await Products.find({bidEnded : false , _id:req.user._id}).populate("currentBidder").populate("owner");
+        const allProducts = await Products.find({bidEnded : true , currentBidder:req.user._id ,rated:false}).populate("currentBidder").populate("owner");
         // const bought = allProducts.filter((product) => product._id === req.user._id);
         res.status(201).json({allProducts});
     }catch(err){
@@ -104,6 +105,20 @@ export const getProductById = async (req,res,next) => {
     try{
         const allProducts = await Products.find({ _id : id}).populate("owner").populate("currentBidder");
         res.status(201).json({allProducts})
+    }catch(err){
+        console.log(err);
+        res.status(400).json({message:"Something Went Wrong"});
+    }
+}
+
+export const rateProducts = async (req,res,next) => {
+    const {rating,product} = req.body;
+    try{
+        const newRating = Math.round((parseInt( product.owner.rating) + parseInt(rating))/2)
+        console.log(newRating)
+        await Seller.findOneAndUpdate({ _id:product.owner._id} , {rating : newRating });
+        await Products.findOneAndUpdate({_id:product._id} , {rated:true})
+        res.status(201).json({message:"Rating Updated"})
     }catch(err){
         console.log(err);
         res.status(400).json({message:"Something Went Wrong"});
