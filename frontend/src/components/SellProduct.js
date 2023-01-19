@@ -4,6 +4,7 @@ import SellProductForm from "./SellProductForm";
 import { useState, useEffect } from "react";
 import SellerNavbar from "./SellerNavbar";
 import { customInstance } from "../helpers/axios";
+import productimg from "../img/wheat.jpg";
 const SellProduct = () => {
   const [isCrossed, setisCrossed] = useState(false);
   const [isAddProduct, setisAddProduct] = useState(false);
@@ -36,7 +37,10 @@ const SellProduct = () => {
               ongoing.map((product) => {
                 return (
                   <div className="product">
-                    <div className="product-img product-img-1"></div>
+                    <div
+                      className="product-img-1"
+                      style={{ backgroundImage: `url(${product.image})` }}
+                    ></div>
                     <div className="product-details">
                       <h1>{product.name}</h1>
                       <div className="bid-info">
