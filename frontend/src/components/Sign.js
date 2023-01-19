@@ -47,7 +47,7 @@ const options = [
   "West Bengal",
 ];
 
-function Sign({ setisSignin, setisSignup }) {
+function Sign({ setisSignin, setisSignup ,setcrossClicked}) {
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({
     firstName: "",
@@ -64,13 +64,13 @@ function Sign({ setisSignin, setisSignup }) {
     try {
       const axios = customInstance();
       const payload = await axios.post(`/${query}/signup`, userInfo);
-      localStorage.setItem("token" , payload.data.token);
-      localStorage.setItem("user",JSON.stringify(payload.data.user));
-      if(query === "Buyer"){
-        localStorage.setItem("userType" , "Buyer");
-        navigate("buyer/profile")
-      }
-      else {
+      localStorage.setItem("token", payload.data.token);
+      localStorage.setItem("user", JSON.stringify(payload.data.user));
+      if (query === "Buyer") {
+        localStorage.setItem("userType", "Buyer");
+        setcrossClicked(true);
+        setisSignup(false);
+      } else {
         localStorage.setItem("userType", "Seller");
         navigate("/seller/profile");
       }

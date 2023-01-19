@@ -12,9 +12,11 @@
 
 .seller-profile-container{
     width: 100%;
-    height: 90vh;
+    padding-top: 10vh;
+    height: 100vh;
     background-image: linear-gradient( #3e4532, #d1e6a5 );
-    
+    position: relative;
+    z-index: -2;
     display: flex;
     justify-content: center;
 

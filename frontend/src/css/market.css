@@ -62,3 +62,11 @@
     justify-content: space-around;
 }
 
+.market-main-container{
+    padding-top: 12vh;
+    padding-bottom: 12vh;
+    position: relative;
+    z-index: -2;
+    background-color: rgb(237, 237, 237);
+    background-image: linear-gradient(rgb(8, 8, 8) , rgb(231, 231, 231));
+}
