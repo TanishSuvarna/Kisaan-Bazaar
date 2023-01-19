@@ -13,10 +13,10 @@ const SellerNavbar = () => {
             <div className="dash-logo"></div>
 
             <div className="dash-nav-links-div">
-              <Link to={"/"}>
+              <Link to="/seller/profile">
                 <li className="dash-nav-links">Home</li>
               </Link>
-              <Link to={"SellProduct"}>
+              <Link to= "/seller/SellProduct">
                 {" "}
                 <li className="dash-nav-links">Sell Products</li>
               </Link>

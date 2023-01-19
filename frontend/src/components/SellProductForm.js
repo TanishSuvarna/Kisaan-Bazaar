@@ -1,5 +1,5 @@
 import React from "react";
-
+import { useState ,useEffect } from "react";
 // import { enableRipple } from '@syncfusion/ej2-base';
 // import the timepicker
 // import { TimePickerComponent } from '@syncfusion/ej2-react-calendars';
@@ -16,15 +16,62 @@ import {
   MDBTextArea,
   MDBFile,
 } from "mdb-react-ui-kit";
+import { customInstance } from "../helpers/axios";
 
-function SellProductForm() {
+function SellProductForm({setter ,setisCrossed , setisAddProduct}) {
+  const [productInfo , setProductInfo] = useState({
+    name:"",
+    quantity:"",
+    basePrice:"",
+    description:"",
+    image:"",
+  })
+  const handleSubmit = async (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    const{name , quantity , image , description , basePrice} = productInfo;
+    if(!name || !quantity || !description || !basePrice) return alert("Please Enter Valid Details");
+    try{
+      const axios = customInstance()
+      const form = new FormData();
+    form.append('name', name);
+    form.append('quantity', quantity);
+    form.append('image', image);
+    form.append('description', description);
+    form.append('basePrice', basePrice);
+    const add = await axios.post("/seller/addProduct" , form);
+    console.log(add);
+    setter((prev) =>{
+      return [...prev , add.data.newProduct]
+    });
+    }
+    catch{
+      return alert("Sorry Something Went Wrong");
+    }
+    alert("Product Added Success");
+    setProductInfo({name:"",
+    quantity:"",
+    basePrice:"",
+    description:"",
+    image:""})
+    setisCrossed(true);
+    setisAddProduct(true);
+  }
+  const handleChange= (e) => {
+    setProductInfo((prev) => {
+      if(e.target.name === "image"){
+        return {...prev , [e.target.name] : e.target.files[0]};
+      }
+      else return {...prev , [e.target.name] : e.target.value};})
+  }
   return (
     <MDBContainer fluid>
       <MDBRow className="d-flex justify-content-center align-items-center">
         <MDBCol lg="9" className="px-4">
           <h1 class="text-white mb-2">Add Product</h1>
-
+          
           <MDBCard>
+            <form onSubmit={handleSubmit}>
             <MDBCardBody className="px-4">
               <MDBRow className="align-items-center pt-4 pb-3">
                 <MDBCol md="3" className="ps-5">
@@ -32,7 +79,7 @@ function SellProductForm() {
                 </MDBCol>
 
                 <MDBCol md="5" className="pe-5">
-                  <MDBInput label="Name" size="lg" id="form1" type="text" />
+                  <MDBInput label="Name" name = "name" value = {productInfo.name} onChange ={handleChange} size="lg" id="form1" type="text" />
                 </MDBCol>
               </MDBRow>
 
@@ -44,7 +91,7 @@ function SellProductForm() {
                 </MDBCol>
 
                 <MDBCol md="5" className="pe-5">
-                  <MDBInput label="Base Price" id="typeNumber" type="number" />
+                  <MDBInput  name = "basePrice" value = {productInfo.basePrice} onChange ={handleChange}label="Base Price" id="typeNumber" type="number" />
                 </MDBCol>
               </MDBRow>
 
@@ -55,7 +102,7 @@ function SellProductForm() {
                 </MDBCol>
 
                 <MDBCol md="5" className="pe-5">
-                  <MDBInput label="Quantity" id="typeNumber" type="number" />
+                  <MDBInput  name = "quantity" value = {productInfo.quantity} onChange ={handleChange} label="Quantity" id="typeNumber" type="number" />
                 </MDBCol>
               </MDBRow>
 
@@ -67,7 +114,7 @@ function SellProductForm() {
                 </MDBCol>
 
                 <MDBCol md="9" className="pe-5">
-                  <MDBTextArea
+                  <MDBTextArea  name = "description" value = {productInfo.description} onChange ={handleChange}
                     label="Description"
                     id="textAreaExample"
                     rows={3}
@@ -83,7 +130,7 @@ function SellProductForm() {
                 </MDBCol>
 
                 <MDBCol md="9" className="pe-5">
-                  <MDBFile size="lg" id="customFile" />
+                  <MDBFile name ="image" onChange = {handleChange} size="lg" id="customFile" />
                   <div className="small text-muted mt-2">
                     Upload your Product Image. Max file size 50 MB
                   </div>
@@ -92,10 +139,11 @@ function SellProductForm() {
 
               <hr className="mx-n3" />
 
-              <MDBBtn className="my-4" size="lg">
-                send application
+              <MDBBtn type = "submit" className="my-4" size="lg">
+                ADD
               </MDBBtn>
             </MDBCardBody>
+            </form>
           </MDBCard>
         </MDBCol>
       </MDBRow>

@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { useInView } from "react-intersection-observer";
+import { Navigate } from "react-router-dom";
 import "../css/LandingPage.css";
 import Login2 from "./Login2";
 import { useRef } from "react";
@@ -30,7 +30,9 @@ const LandingPage = () => {
   //   }
   //   setIsMenuClicked(!isMenuClicked);
   // };
-
+  if(localStorage.getItem("token")){
+    if(localStorage.getItem("userType") === "Seller")return <Navigate to = "/seller/profile"/>
+  }
   return (
     <>
       <div className="landing-container">
