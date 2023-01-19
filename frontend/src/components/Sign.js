@@ -2,7 +2,7 @@ import React from "react";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import { useState } from "react";
 import { customInstance } from "../helpers/axios";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 import {
   MDBBtn,
   MDBContainer,
@@ -56,8 +56,8 @@ function Sign({ setisSignin, setisSignup }) {
     address: "",
     state: options[0],
     password: "",
-  })
-  const [query, setQuery] = useState("Buyer")
+  });
+  const [query, setQuery] = useState("Buyer");
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -71,12 +71,12 @@ function Sign({ setisSignin, setisSignup }) {
         navigate("buyer/profile")
       }
       else {
-        localStorage.setItem("userType" , "Seller");
-        navigate("/seller/profile")
+        localStorage.setItem("userType", "Seller");
+        navigate("/seller/profile");
       }
-      
-    }catch{
+    } catch (err) {
       alert("Something Went Wrong");
+      console.log(err.message);
     }
     setUserInfo({
       firstName: "",
@@ -85,14 +85,13 @@ function Sign({ setisSignin, setisSignup }) {
       address: "",
       state: "",
       password: "",
-    })
-
+    });
   };
   const handleChange = (e) => {
     setUserInfo((prev) => {
       return { ...prev, [e.target.name]: e.target.value };
-    })
-  }
+    });
+  };
   return (
     <MDBContainer fluid>
       <form onSubmit={handleSubmit}>
@@ -188,24 +187,24 @@ function Sign({ setisSignin, setisSignup }) {
                 name="address"
                 value={userInfo.address}
                 onChange={handleChange}
-
               />
 
               <MDBCol>
-                <div className='fw-normal text-start me-2'>
+                <div className="fw-normal text-start me-2">
                   Select Region:
                   {/* <h6 className='fw-normal text-start me-2' >Select your region</h6> */}
-                  <select className='mb-4 py-2 px-4 ms-3 square border border-grey'
+                  <select
+                    className="mb-4 py-2 px-4 ms-3 square border border-grey"
                     value={userInfo.state}
                     name="state"
-                    onChange={handleChange}>
+                    onChange={handleChange}
+                  >
                     {options.map((value, index) => (
                       <option value={value} key={index}>
                         {value}
                       </option>
                     ))}
                   </select>
-
                 </div>
               </MDBCol>
 
