@@ -10,8 +10,8 @@ import { Server } from "socket.io";
 import http from "http";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-import Products from './models/products.js';
-import Seller from './models/seller.js';
+import Products from "./models/products.js";
+import Seller from "./models/seller.js";
 
 dotenv.config();
 const app = express();
@@ -35,25 +35,37 @@ mongoose
 // app.get("/", (req, res) => {
 //     res.sendFile(__dirname + "/index.html");
 //   });
-app.use("/public",express.static(path.join(__dirname , "uploads")));
-app.use("/api",userRouter); //SignIn/SignUp Normal Users
-app.use("/api",productRouter);
+app.use("/public", express.static(path.join(__dirname, "uploads")));
+app.use("/api", userRouter); //SignIn/SignUp Normal Users
+app.use("/api", productRouter);
 
-io.on("connect", socket => {
-    socket.on("testing" , str => console.log(str));
-        socket.on("productSold" ,async (product) => {
-          io.emit("productSold" , product);
-          try{
-                await Products.findOneAndUpdate({_id:product._id} , {bidEnded:true});
-                await Seller.findOneAndUpdate({_id : product.owner._id} , {earnings : product.owner.earnings + product.currentBid});
-          }catch(err){
-                console.log(err);
-          } 
-        });
-        socket.on("send_current_bid", (data) => {
-          console.log(data);
-          io.emit("send_current_bid" , data)
-        });
+io.on("connect", (socket) => {
+  socket.on("testing", (str) => console.log(str));
+  socket.on("productSold", async (product) => {
+    io.emit("productSold", product);
+    try {
+      await Products.findOneAndUpdate({ _id: product._id }, { bidEnded: true });
+      await Seller.findOneAndUpdate(
+        { _id: product.owner._id },
+        { earnings: product.owner.earnings + product.currentBid }
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  });
+  socket.on("send_current_bid", async (data) => {
+    console.log(data.currentBidder);
+
+    try {
+      await Products.findByIdAndUpdate(
+        { _id: data.id },
+        { currentBid: data.inputValue, currentBidder: data.currentBidder }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+    io.emit("update_current_bid", data.inputValue);
+  });
 });
 httpServer.listen(process.env.PORT || 5000, () => {
   console.log("Listening");

@@ -9,18 +9,44 @@ import { customInstance } from "../helpers/axios";
 const ProductDescription = ({ socket }) => {
   const [currProduct, setcurrProduct] = useState();
   const { id } = useParams();
-
+  const [isbidGreater, setisbidGreater] = useState();
+  const [currBid, setcurrBid] = useState();
   const [inputValue, setinputValue] = useState();
 
   socket.on("send_current_bid", (data) => {
     console.log(data);
   });
   const updateCurrentBid = () => {
-    console.log("hello");
+    if (parseInt(currBid) < parseInt(inputValue)) {
+      setcurrBid(inputValue);
+    }
+    const data = {
+      inputValue: inputValue,
+      id: id,
+      currentBidder:JSON.parse(localStorage.user)._id,
+    };
     if (socket) {
-      socket.emit("send_current_bid", `Hey i my bid is ${inputValue}`);
+      socket.emit("send_current_bid", data);
     }
   };
+
+  useEffect(() => {
+    console.log(inputValue);
+    console.log(currBid);
+    if (parseInt(currBid) < parseInt(inputValue)) {
+      setisbidGreater(true);
+    } else {
+      setisbidGreater(false);
+    }
+  }, [inputValue]);
+
+  useEffect(() => {
+    socket.off("update_current_bid").on("update_current_bid", (data) => {
+      setinputValue(data);
+      setcurrBid(data);
+      console.log("hello" + data);
+    });
+  }, [socket]);
 
   useEffect(() => {
     const func = async () => {
@@ -30,6 +56,7 @@ const ProductDescription = ({ socket }) => {
         setcurrProduct(product.data.allProducts[0]);
         setinputValue(product.data.allProducts[0].basePrice);
         console.log(product.data.allProducts[0]);
+        setcurrBid(product.data.allProducts[0].currentBid);
       } catch (err) {
         alert("Something Went Wrong PLease Try Again Later");
       }
@@ -81,7 +108,7 @@ const ProductDescription = ({ socket }) => {
 
               <div className="product-current-bid">
                 <h1>
-                  Current Bid: <span>{currProduct.currentBid}</span>
+                  Current Bid: <span>{currBid}</span>
                 </h1>
                 <h1>
                   Base price: <span>{currProduct.basePrice + "Rs"}</span>
@@ -96,7 +123,12 @@ const ProductDescription = ({ socket }) => {
                   // placeholder={currProduct.basePrice}
                   type="number"
                 />
-                <button onClick={updateCurrentBid}>Bid</button>
+                <button
+                  disabled={isbidGreater ? false : true}
+                  onClick={updateCurrentBid}
+                >
+                  Bid
+                </button>
               </div>
             </div>
           </div>
