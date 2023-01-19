@@ -69,7 +69,7 @@ const MarketNew = () => {
                 style={{ backgroundImage: `url(${jowar})` }}
               >
                 <div>
-                  <h1 onClick = {handleClick} className="market-product"
+                  <h1  onClick = {handleClick} className="market-product"
                 name = "Jowar">Jowar</h1>
                 </div>
               </div>
@@ -115,7 +115,7 @@ const MarketNew = () => {
               >
                 <div>
                   <h1 name = "Sprouts"
-                onClick = {handleClick}>Carrot</h1>
+                     onClick = {handleClick}>Carrot</h1>
                 </div>
               </div>
               <div
@@ -141,18 +141,17 @@ const MarketNew = () => {
               >
                 <div>
                   <h1 name = "Banana"
-                onClick = {handleClick}>wheat</h1>
-                  <h1>Banana</h1>
+                onClick = {handleClick}>Banana</h1>
                 </div>
               </div>
               <div
                 className="market-product"
-                name = "Watermelon"
-                onClick = {handleClick}
+               
                 style={{ backgroundImage: `url(${apple})` }}
               >
                 <div>
-                  <h1>Apple</h1>
+                  <h1  name = "Watermelon"
+                onClick = {handleClick}>Apple</h1>
                 </div>
               </div>
               <div
@@ -160,7 +159,8 @@ const MarketNew = () => {
                 style={{ backgroundImage: `url(${orange})` }}
               >
                 <div>
-                  <h1>Jowar</h1>
+                  <h1 name = "Apple"
+                onClick = {handleClick}>Orange</h1>
                 </div>
               </div>
               <div

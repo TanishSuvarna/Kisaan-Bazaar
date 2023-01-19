@@ -5,11 +5,16 @@ import { useState, useEffect } from "react";
 import SellerNavbar from "./SellerNavbar";
 import { customInstance } from "../helpers/axios";
 import productimg from "../img/wheat.jpg";
-const SellProduct = () => {
+const SellProduct = ({socket}) => {
   const [isCrossed, setisCrossed] = useState(false);
   const [isAddProduct, setisAddProduct] = useState(false);
   const [ongoing, setOngoing] = useState([]);
   const [loading, setLoading] = useState(true);
+  const handleSell = (product) => {
+    socket.emit("productSold" , product)
+    const rem = ongoing.filter((p) => p._id !== product._id )
+    setOngoing(rem);
+  }
   useEffect(() => {
     const func = async () => {
       const axios = customInstance();
@@ -20,7 +25,6 @@ const SellProduct = () => {
   }, []);
   useEffect(() => {
     setLoading(false);
-    console.log(ongoing);
   }, [ongoing]);
   if (loading) return <h1>Loading...</h1>;
   return (
@@ -34,9 +38,9 @@ const SellProduct = () => {
 
           <div className="product-container">
             {ongoing.length > 0 &&
-              ongoing.map((product) => {
+              ongoing.map((product, key) => {
                 return (
-                  <div className="product">
+                  <div className="product" key = {key}>
                     <div
                       className="product-img-1"
                       style={{ backgroundImage: `url(${product.image})` }}
@@ -58,7 +62,7 @@ const SellProduct = () => {
                         </div>
                       </div>
                       <div className="sell-btn">
-                        <button>Sell</button>
+                        <button onClick = {() => handleSell(product)}>Sell</button>
                       </div>
                     </div>
                   </div>
