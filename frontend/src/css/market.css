@@ -37,6 +37,7 @@
     width: 85%;
     margin: 5px 0 0 100px;
     height: 550px;
+    flex-wrap :wrap;
     display: flex;
 }
 

@@ -86,12 +86,24 @@ export const boughtProducts = async (req,res,next) => {
 }
 
 export const getActiveProductsByCategory = async(req , res , next) => {
-    const {category} = req.body;
+    const category = req.params.category;
 
     try{
-        const allProducts = await Products.find({bidEnded:false , category}).populate("currentBidder");
+        const allProducts = await Products.find({bidEnded:false , name:category}).populate("owner");
         res.status(201).json({allProducts})
 
+    }catch(err){
+        console.log(err);
+        res.status(400).json({message:"Something Went Wrong"});
+    }
+}
+
+export const getProductById = async (req,res,next) => {
+    const id = req.params.id;
+    console.log(id);
+    try{
+        const allProducts = await Products.find({ _id : id}).populate("owner").populate("currentBidder");
+        res.status(201).json({allProducts})
     }catch(err){
         console.log(err);
         res.status(400).json({message:"Something Went Wrong"});
