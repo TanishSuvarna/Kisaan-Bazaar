@@ -29,9 +29,9 @@ const LandingPage = () => {
   //   }
   //   setIsMenuClicked(!isMenuClicked);
   // };
-  if(localStorage.getItem("token")){
-    if(localStorage.getItem("userType") === "Seller")return <Navigate to = "/seller/profile"/>
-    if(localStorage.getItem("userType") === "Buyer")return <Navigate to = "/buyer/profile"/>
+  if (localStorage.getItem("token")) {
+    if (localStorage.getItem("userType") === "Seller")
+      return <Navigate to="/seller/profile" />;
   }
   return (
     <>
@@ -41,7 +41,11 @@ const LandingPage = () => {
         </div>
         <div className="landing-page-background"></div>
 
-        <BuyerNavbar setisSignin ={setisSignin} setisSignup={setisSignup}  setcrossClicked={setcrossClicked}/>
+        <BuyerNavbar
+          setisSignin={setisSignin}
+          setisSignup={setisSignup}
+          setcrossClicked={setcrossClicked}
+        />
         <div className="landing-wrapper">
           <div className="slogan">
             <h1>Farmers Market Place</h1>

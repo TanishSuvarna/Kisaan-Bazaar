@@ -3,7 +3,7 @@ import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import { useState } from "react";
 import "../css/Login2.css";
 import { customInstance } from "../helpers/axios";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 import {
   MDBBtn,
   MDBContainer,
@@ -17,46 +17,47 @@ import {
   MDBRadio,
 } from "mdb-react-ui-kit";
 
-function Login2({setisSignin, setisSignup, setcrossClicked}) {
+function Login2({ setisSignin, setisSignup, setcrossClicked }) {
   const navigate = useNavigate();
-  const [userInfo , setUserInfo] = useState({
-    email:"",
-    password:""
-  })
-  const [query , setQuery] = useState("Buyer");
+  const [userInfo, setUserInfo] = useState({
+    email: "",
+    password: "",
+  });
+  const [query, setQuery] = useState("Buyer");
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-    try{
+    try {
       const axios = customInstance();
       console.log(query);
       const payload = await axios.post(`/${query}/signin`, userInfo);
-      localStorage.setItem("token" , payload.data.token);
-      localStorage.setItem("user",JSON.stringify(payload.data.user));
-      if(query === "Buyer"){
-        localStorage.setItem("userType" , "Buyer");
-        navigate("buyer/profile")
+      localStorage.setItem("token", payload.data.token);
+      localStorage.setItem("user", JSON.stringify(payload.data.user));
+      if (query === "Buyer") {
+        localStorage.setItem("userType", "Buyer");
+        setcrossClicked(true);
+        setisSignin(false);
+      } else {
+        localStorage.setItem("userType", "Seller");
+        navigate("/seller/profile");
       }
-      else {
-        localStorage.setItem("userType" , "Seller");
-        navigate("/seller/profile")
-      }
-    }catch{
+    } catch {
       alert("Something Went Wrong");
     }
     setUserInfo({
-      firstName : "",
-      lastName :"",
-      email :"",
-      address:"",
-      state:"",
-      password:"",
-    })
-  }
-  const handleChange= (e) => {
+      firstName: "",
+      lastName: "",
+      email: "",
+      address: "",
+      state: "",
+      password: "",
+    });
+  };
+  const handleChange = (e) => {
     setUserInfo((prev) => {
-      return {...prev , [e.target.name] : e.target.value};})
-  }
+      return { ...prev, [e.target.name]: e.target.value };
+    });
+  };
   return (
     <MDBContainer fluid>
       <form onSubmit={handleSubmit}>
@@ -76,7 +77,7 @@ function Login2({setisSignin, setisSignup, setcrossClicked}) {
                   id="formControlLg"
                   type="email"
                   size="lg"
-                  name ="email"
+                  name="email"
                   value={userInfo.email}
                   onChange={handleChange}
                 />
@@ -87,29 +88,29 @@ function Login2({setisSignin, setisSignup, setcrossClicked}) {
                   id="formControlLg"
                   type="password"
                   size="lg"
-                  name ="password"
+                  name="password"
                   value={userInfo.password}
                   onChange={handleChange}
                 />
                 <MDBCol md="6" className="mb-4">
-                <h6 className="fw-bold">I am: </h6>
-                <MDBRadio
-                  name="inlineRadio"
-                  id="inlineRadio1"
-                  value="Buyer"
-                  label="Buyer"
-                  onClick={(e) => setQuery(e.target.value)}
-                  inline
-                />
-                <MDBRadio
-                  name="inlineRadio"
-                  id="inlineRadio2"
-                  value="Seller"
-                  label="Seller"
-                  onClick={(e) => setQuery(e.target.value)}
-                  inline
-                />
-              </MDBCol>
+                  <h6 className="fw-bold">I am: </h6>
+                  <MDBRadio
+                    name="inlineRadio"
+                    id="inlineRadio1"
+                    value="Buyer"
+                    label="Buyer"
+                    onClick={(e) => setQuery(e.target.value)}
+                    inline
+                  />
+                  <MDBRadio
+                    name="inlineRadio"
+                    id="inlineRadio2"
+                    value="Seller"
+                    label="Seller"
+                    onClick={(e) => setQuery(e.target.value)}
+                    inline
+                  />
+                </MDBCol>
 
                 {/* <MDBCheckbox name='flexCheck' id='flexCheckDefault' className='mb-4' label='Remember password' /> */}
                 {/* <p className="small mb-3 pb-lg-2">
@@ -125,7 +126,6 @@ function Login2({setisSignin, setisSignup, setcrossClicked}) {
                   <p className="mb-0">
                     Don't have an account?{" "}
                     <a
-                      
                       class="text-dark-50 fw-bold"
                       onClick={() => {
                         setisSignin(false);
@@ -135,7 +135,7 @@ function Login2({setisSignin, setisSignup, setcrossClicked}) {
                       }}
                     >
                       Sign Up
-                      </a>
+                    </a>
                   </p>
                 </div>
               </MDBCardBody>
