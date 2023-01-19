@@ -15,22 +15,20 @@ import Market from "./components/market.js/market.js";
 import MarketNew from "./components/MarketNew.js";
 import ProductDescription from './components/ProductDescription.js'
 function App() {
-  // const [socket, setSocket] = useState(null);
+  const [socket, setSocket] = useState(null);
   // const [num , setNum] = useState(0);
   // const [visual , setVisual] = useState(0);
-  // useEffect(() => {
-  //   setSocket(io("http://localhost:5000"));
-  // }, []);
+  useEffect(() => {
+    setSocket(io("http://localhost:5000"));
+  }, []);
 
-  // if(socket){
-  //   socket.on("connect" , () => {
-  //     socket.emit("testing" , `Hey i Am ${socket.id}`)
-  //     socket.on("updatedNumVal" , (data) =>{
-  //       console.log(data);
-  //       setVisual(data)
-  //     });
-  //   })
-  // }
+  if(socket){
+    socket.on("connect" , () => {
+      socket.emit("testing" , `Hey i Am ${socket.id}`)
+      
+      
+    })
+  }
 
   // const handleChange = (e) =>{
   //   setNum(e.target.value);
@@ -48,7 +46,7 @@ function App() {
         <Route path="/buyer" element={<BuyerRoutes />}>
           <Route path="/buyer/market" element={<MarketNew />}></Route>
           <Route path="/buyer/market/:category" element={<Market />}></Route>
-          <Route path="/buyer/market/product/:id" element={<ProductDescription/>}></Route>
+          <Route path="/buyer/market/product/:id" element={<ProductDescription  socket={socket}/>}></Route>
           <Route path="*" element={<BuyerProfile />}></Route>
         </Route>
         <Route path="/" exact element={<LandingPage />} />
