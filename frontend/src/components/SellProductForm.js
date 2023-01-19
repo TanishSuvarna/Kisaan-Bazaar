@@ -29,6 +29,9 @@ function SellProductForm({ setter, setisCrossed, setisAddProduct }) {
     image: "",
     category: "",
   });
+  const handleDate = (e) => {
+    console.log(e.target.value)
+  }
   const handleSubmit = async (e) => {
     e.stopPropagation();
     e.preventDefault();
@@ -40,20 +43,25 @@ function SellProductForm({ setter, setisCrossed, setisAddProduct }) {
       !description ||
       !basePrice ||
       !category ||
-      category.size == 0
+      category.size === 0
     )
       return alert("Please Enter Valid Details");
     try {
       const axios = customInstance();
       const form = new FormData();
+      const AuctionStartTime = new Date();
+
+    const AuctionEndTime = new Date(AuctionStartTime.setDate(new Date().getDate() + 2));
       form.append("name", name);
       form.append("quantity", quantity);
       form.append("image", image);
       form.append("category", category);
       form.append("description", description);
       form.append("basePrice", basePrice);
+      form.append("AuctionEndTime", AuctionEndTime);
       const add = await axios.post("/seller/addProduct", form);
-      console.log(add);
+      
+      
       setter((prev) => {
         return [...prev, add.data.newProduct];
       });
@@ -177,6 +185,27 @@ function SellProductForm({ setter, setisCrossed, setisAddProduct }) {
                 </MDBRow>
 
                 <hr className="mx-n3" />
+                {/* <MDBRow className="align-items-center pt-4 pb-3">
+                  <MDBCol md="3" className="ps-5">
+                    <h6 className="mb-0">Date(in Kg)</h6>
+                  </MDBCol>
+
+                  <MDBCol md="5" className="pe-5">
+                    <MDBInput
+                    data-mdb-inline="true"
+                    type = "date"
+                    onChange = {handleDate}
+                      // name="quantity"
+                      // value={productInfo.quantity}
+                      // onChange={handleChange}
+                      // label="Quantity"
+                      // id="typeNumber"
+                      // type="number"
+                    />
+                  </MDBCol>
+                </MDBRow>
+
+                <hr className="mx-n3" /> */}
 
                 <MDBRow className="align-items-center pt-4 pb-3">
                   <MDBCol md="3" className="ps-5">
