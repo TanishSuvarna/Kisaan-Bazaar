@@ -89,11 +89,7 @@ const LandingPage = () => {
         <div className="landing-section-3-wrapper">
           <div
             className="Buyer"
-            onClick={() => {
-              setisSignup(true);
-              setisSignin(false);
-              setcrossClicked(false);
-            }}
+        
           >
             <div className="Buyer-div">
               <p>ARE YOU LOOKING TO BUY SOMETHING </p>
@@ -102,11 +98,7 @@ const LandingPage = () => {
           </div>
           <div
             className="Seller"
-            onClick={() => {
-              setisSignup(true);
-              setisSignin(false);
-              setcrossClicked(false);
-            }}
+           
           >
             <div className="Seller-div">
               <p>ARE YOU LOOKING TO SELL SOMETHING </p>
