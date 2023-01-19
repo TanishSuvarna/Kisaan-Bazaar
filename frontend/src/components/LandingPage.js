@@ -3,8 +3,7 @@ import { useState } from "react";
 import { Navigate } from "react-router-dom";
 import "../css/LandingPage.css";
 import Login2 from "./Login2";
-import { useRef } from "react";
-import { useEffect } from "react";
+import BuyerNavbar from "./BuyerNavbar";
 import Sign from "./Sign";
 const LandingPage = () => {
   const [crossClicked, setcrossClicked] = useState(false);
@@ -32,6 +31,7 @@ const LandingPage = () => {
   // };
   if(localStorage.getItem("token")){
     if(localStorage.getItem("userType") === "Seller")return <Navigate to = "/seller/profile"/>
+    if(localStorage.getItem("userType") === "Buyer")return <Navigate to = "/buyer/profile"/>
   }
   return (
     <>
@@ -41,38 +41,7 @@ const LandingPage = () => {
         </div>
         <div className="landing-page-background"></div>
 
-        <div className="main-navbar">
-          <div className="navbar-wrapper">
-            <div className="logo"></div>
-            <div className="navbar-links-div">
-              {" "}
-              <li className="navbar-links">Home</li>
-              <li className="navbar-links">Market</li>
-              <li className="navbar-links">Contact</li>
-              <li className="navbar-links">Learn</li>
-              <li
-                className="navbar-links "
-                onClick={() => {
-                  setisSignup(true);
-                  setisSignin(false);
-                  setcrossClicked(false);
-                }}
-              >
-                Sign Up
-              </li>
-              <li
-                className="navbar-links "
-                onClick={() => {
-                  setisSignup(false);
-                  setisSignin(true);
-                  setcrossClicked(false);
-                }}
-              >
-                Sign In
-              </li>
-            </div>
-          </div>
-        </div>
+        <BuyerNavbar setisSignin ={setisSignin} setisSignup={setisSignup}  setcrossClicked={setcrossClicked}/>
         <div className="landing-wrapper">
           <div className="slogan">
             <h1>Farmers Market Place</h1>

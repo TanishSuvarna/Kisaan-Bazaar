@@ -1,0 +1,125 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --main-color : #d1e6a5;
+}
+
+.main-product-container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.main-product-wrapper{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-product{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 70%;
+    height: auto;
+    height: 600px;
+}
+
+.main-product-image{
+   
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 45%;
+    height: 600px;
+}
+.main-product-info{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 5%;
+}
+.product-name h1{
+    font-size: 2.7rem;
+
+}
+.product-description{
+    font-size: 1.2rem;
+}
+.product-seller-name h1{
+    font-size: 1.3rem;
+
+}
+.product-seller-name h1 span{
+    font-size: 1.3rem;
+    color: rgb(145, 145, 145);
+    
+}
+.product-bid-time-left{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+.product-bid-time-left h1{
+    font-size: 1.3rem;
+}
+.time-holder{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2em;
+}
+.time-holder div{
+    font-size: 1.5em;
+    width: 150px ;
+    padding: 2em;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 0px 20px 0px rgb(214, 214, 214);
+}
+.time-holder h1{
+    margin: 0;
+}
+.time-holder p{
+    margin: 0;
+}
+.product-current-bid h1{
+    font-size: 1.3em;
+
+}
+.product-current-bid span{
+    color: rgb(171, 171, 171);
+}
+.product-bid-increaser{
+    display: flex;
+    gap: 1em;
+}
+.product-bid-increaser input{
+    padding: 1em;
+    border-radius: 5px;
+    border: 1px  rgb(179, 179, 179) solid;
+}
+.product-bid-increaser button{
+    padding: 1em;
+    width: 7em;
+    background-color: #d1e6a5;
+    border: 1px #d1e6a5 solid;
+    border-radius: 5px;
+}
+.product-bid-increaser button:hover{
+    background-color: #a5b67f;
+}

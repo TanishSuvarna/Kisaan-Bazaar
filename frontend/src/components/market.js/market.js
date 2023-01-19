@@ -29,6 +29,7 @@ const Market = () => {
     };
 
     return (
+        
         <Fragment>
             <h1 className='text-danger fw-bold text-center mb-5'>Welcome to Market Page</h1>
             <div className='market'>

@@ -1,68 +1,69 @@
 import React from "react";
 import "../css/SellProduct.css";
 import SellProductForm from "./SellProductForm";
-import { useState , useEffect } from "react";
+import { useState, useEffect } from "react";
 import SellerNavbar from "./SellerNavbar";
 import { customInstance } from "../helpers/axios";
+import productimg from "../img/wheat.jpg";
 const SellProduct = () => {
   const [isCrossed, setisCrossed] = useState(false);
   const [isAddProduct, setisAddProduct] = useState(false);
-  const [ongoing , setOngoing] = useState([]);
-  const [loading , setLoading] = useState(true)
-   useEffect(() => {
-      const func = async () => {
-        const axios = customInstance();
-        const data = await axios.get("/seller/activeProducts");
-        setOngoing([...data.data]);
-      }
-      func();
-    },[])
-    useEffect(()=>{
-      setLoading(false);
-      console.log(ongoing);
-    },[ongoing])
-    if(loading) return <h1>Loading...</h1>
+  const [ongoing, setOngoing] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const func = async () => {
+      const axios = customInstance();
+      const data = await axios.get("/seller/activeProducts");
+      setOngoing([...data.data]);
+    };
+    func();
+  }, []);
+  useEffect(() => {
+    setLoading(false);
+    console.log(ongoing);
+  }, [ongoing]);
+  if (loading) return <h1>Loading...</h1>;
   return (
-   
     <>
-    <SellerNavbar/>
+      <SellerNavbar />
       <div className="sellProduct-main-container">
-        <div className="back-lines"></div>
         <div className="sellProduct-wrapper">
           <h1 className="sellProduct-heading">
             Start Selling Your Product Here!
           </h1>
 
           <div className="product-container">
-            {
-            ongoing.length > 0 && ongoing.map((product) => {
-              return (
-                <div className="product">
-              <div className="product-img product-img-1"></div>
-              <div className="product-details">
-                <h1>{product.name}</h1>
-                <div className="bid-info">
-                  <div className="current-bid">
-                    <p>Current Bid</p>
-                    <p>{product.currentBidder ? product.currentBidder.name : "None"}</p>
+            {ongoing.length > 0 &&
+              ongoing.map((product) => {
+                return (
+                  <div className="product">
+                    <div
+                      className="product-img-1"
+                      style={{ backgroundImage: `url(${product.image})` }}
+                    ></div>
+                    <div className="product-details">
+                      <h1>{product.name}</h1>
+                      <div className="bid-info">
+                        <div className="current-bid">
+                          <p>Current Bid</p>
+                          <p>
+                            {product.currentBidder
+                              ? product.currentBidder.name
+                              : "None"}
+                          </p>
+                        </div>
+                        <div className="highest-bidder">
+                          <p>Highest Bider</p>
+                          <p>{product.currentBid}</p>
+                        </div>
+                      </div>
+                      <div className="sell-btn">
+                        <button>Sell</button>
+                      </div>
+                    </div>
                   </div>
-                  <div className="highest-bidder">
-                    <p>Highest Bider</p>
-                    <p>{product.currentBid}</p>
-                  </div>
-                </div>
-                <div className="sell-btn">
-                  <button>Sell</button>
-                </div>
-              </div>
-            </div>
-              )
-            }) 
-            
-            
-            
-            }
-            
+                );
+              })}
           </div>
 
           {/*           
@@ -120,7 +121,11 @@ const SellProduct = () => {
               <div className="hamburger_lines"></div>
             </div>
           </div>
-          <SellProductForm setisCrossed= {setisCrossed} setisAddProduct = {setisAddProduct}setter = {setOngoing}></SellProductForm>
+          <SellProductForm
+            setisCrossed={setisCrossed}
+            setisAddProduct={setisAddProduct}
+            setter={setOngoing}
+          ></SellProductForm>
         </div>
       ) : (
         <div></div>
