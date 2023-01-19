@@ -6,7 +6,7 @@ import SellerDashboard from "./components/SellerDashboard";
 import SellProduct from "./components/SellProduct";
 import SellerNavbar from "./components/SellerNavbar";
 import SellerProfile from "./components/SellerProfile";
-import {BrowserRouter , Routes,Route} from 'react-router-dom'
+import {BrowserRouter } from 'react-router-dom'
 import LandingPage from './components/LandingPage.js'
 import { PrivateRoutes } from "./helpers/privateRoutes.js";
 import Products from "./components/Products.js";
