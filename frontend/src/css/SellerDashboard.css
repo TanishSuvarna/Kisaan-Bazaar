@@ -82,3 +82,15 @@
 .dash-nav-links:hover::before{
     left: 0%;
 }
+.dash-nav-btn button{
+    font-size: 1.3rem;
+    background-color: #d1e6a5;
+    padding: 0.4em;
+    border: none;
+    border-radius: 10px;
+
+}
+.dash-nav-btn button:hover{
+    background-color:#abbc87 ;
+
+}
