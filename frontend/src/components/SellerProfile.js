@@ -38,7 +38,7 @@ if(loading) return <h1>Loading...</h1>
                 </div>
                 <div>
                 
-              <p>{userProfile.name}</p>
+              <p>{userProfile.firstName + userProfile.lastName}</p>
               <p>{userProfile.email}</p>
               
               <p>{userProfile.rating}</p>
