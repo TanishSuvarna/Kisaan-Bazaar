@@ -2,7 +2,7 @@ import React from "react";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import { useState } from "react";
 import { customInstance } from "../helpers/axios";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import {
   MDBBtn,
   MDBContainer,
@@ -47,21 +47,21 @@ const options = [
   "West Bengal",
 ];
 
-function Sign({setisSignin, setisSignup}) {
+function Sign({ setisSignin, setisSignup }) {
   const navigate = useNavigate();
-  const [userInfo , setUserInfo] = useState({
-    firstName : "",
-    lastName :"",
-    email :"",
-    address:"",
-    state:options[0],
-    password:"",
+  const [userInfo, setUserInfo] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    address: "",
+    state: options[0],
+    password: "",
   })
-  const [query,setQuery] = useState("Buyer")
+  const [query, setQuery] = useState("Buyer")
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-    try{
+    try {
       const axios = customInstance();
       const payload = await axios.post(`/${query}/signup`, userInfo);
       localStorage.setItem("token" , payload.data.token);
@@ -76,22 +76,23 @@ function Sign({setisSignin, setisSignup}) {
       alert("Something Went Wrong");
     }
     setUserInfo({
-      firstName : "",
-      lastName :"",
-      email :"",
-      address:"",
-      state:"",
-      password:"",
+      firstName: "",
+      lastName: "",
+      email: "",
+      address: "",
+      state: "",
+      password: "",
     })
-    
+
   };
-  const handleChange= (e) => {
+  const handleChange = (e) => {
     setUserInfo((prev) => {
-    return {...prev , [e.target.name] : e.target.value};})
+      return { ...prev, [e.target.name]: e.target.value };
+    })
   }
   return (
     <MDBContainer fluid>
-      <form onSubmit ={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <MDBRow className="d-flex justify-content-center align-items-center h-100">
           <MDBCard
             className="bg-white my-5 mx-auto"
@@ -103,11 +104,12 @@ function Sign({setisSignin, setisSignup}) {
               <MDBCol md="6" className="mb-4">
                 <h6 className="fw-bold">I am: </h6>
                 <MDBRadio
+                  required
                   name="inlineRadio"
                   id="inlineRadio1"
                   value="Buyer"
                   label="Buyer"
-                  onClick= {() => setQuery("Buyer")}
+                  onClick={() => setQuery("Buyer")}
                   inline
                 />
                 <MDBRadio
@@ -115,7 +117,7 @@ function Sign({setisSignin, setisSignup}) {
                   id="inlineRadio2"
                   value="Seller"
                   label="Seller"
-                  onClick= {() => setQuery("Seller")}
+                  onClick={() => setQuery("Seller")}
                   inline
                 />
               </MDBCol>
@@ -129,7 +131,7 @@ function Sign({setisSignin, setisSignup}) {
                     size="lg"
                     id="form1"
                     type="text"
-                    name ="firstName"
+                    name="firstName"
                     value={userInfo.firstName}
                     onChange={handleChange}
                   />
@@ -143,7 +145,7 @@ function Sign({setisSignin, setisSignup}) {
                     size="lg"
                     id="form2"
                     type="text"
-                    name ="lastName"
+                    name="lastName"
                     value={userInfo.lastName}
                     onChange={handleChange}
                   />
@@ -157,9 +159,9 @@ function Sign({setisSignin, setisSignup}) {
                 id="formControlLg"
                 type="email"
                 size="lg"
-                name ="email"
-                    value={userInfo.email}
-                    onChange={handleChange}
+                name="email"
+                value={userInfo.email}
+                onChange={handleChange}
               />
               <MDBInput
                 wrapperClass="mb-4 w-100"
@@ -168,42 +170,42 @@ function Sign({setisSignin, setisSignup}) {
                 id="formControlLg"
                 type="password"
                 size="lg"
-                name ="password"
-                    value={userInfo.password}
-                    onChange={handleChange}
+                name="password"
+                value={userInfo.password}
+                onChange={handleChange}
               />
-             
-                  <MDBInput
-                    wrapperClass="mb-4"
-                    required
-                    label="Address"
-                    size="lg"
-                    id="form1"
-                    type="text"
-                    name ="address"
-                    value={userInfo.address}
-                    onChange={handleChange}
 
-                  />
-                
+              <MDBInput
+                wrapperClass="mb-4"
+                required
+                label="Address"
+                size="lg"
+                id="form1"
+                type="text"
+                name="address"
+                value={userInfo.address}
+                onChange={handleChange}
+
+              />
+
               <MDBCol>
-                                <div className='fw-normal text-start me-2'>
-                                Select your region
-                                {/* <h6 className='fw-normal text-start me-2' >Select your region</h6> */}
-                                <select className='mb-4 py-1 px-3 ms-2 square border border-grey' 
-                                    value={userInfo.state}
-                                    name = "state"
-                                    onChange={handleChange}>
-                                    {options.map((value , index) => (
-                                        <option value={value} key={index}>
-                                            {value}
-                                        </option>
-                                    ))}
-                                </select>
+                <div className='fw-normal text-start me-2'>
+                  Select Region:
+                  {/* <h6 className='fw-normal text-start me-2' >Select your region</h6> */}
+                  <select className='mb-4 py-2 px-4 ms-3 square border border-grey'
+                    value={userInfo.state}
+                    name="state"
+                    onChange={handleChange}>
+                    {options.map((value, index) => (
+                      <option value={value} key={index}>
+                        {value}
+                      </option>
+                    ))}
+                  </select>
 
-                                </div>
-                            </MDBCol>
-                            
+                </div>
+              </MDBCol>
+
               {/* <MDBRow>
                 <h6>Select your region</h6>
                 <select
