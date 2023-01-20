@@ -2,6 +2,7 @@ import "../css/SellerProfile.css";
 import React from "react";
 import { useState ,useEffect} from "react";
 import BuyerNavbar from "./BuyerNavbar";
+import "../css/BuyerProfile.css";
 const BuyerProfile = () => {
    const [userProfile , setUserProfile] = useState({
       name  : "",
@@ -25,7 +26,7 @@ if(loading) return <h1>Loading...</h1>
    
     <>
     <BuyerNavbar/>
-      <div className="seller-profile-container">
+      <div className="buyer-profile-container">
         <div className="seller-container-wrapper">
           <div className="main-profile-div">
             <div className="Profile-pic"></div>

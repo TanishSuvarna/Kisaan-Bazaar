@@ -65,6 +65,9 @@ const Market = ({socket}) => {
   return (
     <>
       <BuyerNavbar></BuyerNavbar>
+
+      <div className="market-main-container">
+        
       <Fragment>
         <h1 className="text-danger fw-bold text-center mb-5">
           Welcome to Market Page
@@ -136,6 +139,8 @@ const Market = ({socket}) => {
           </MDBContainer>
         </div>
       </Fragment>
+      </div>
+      
     </>
   );
 };
