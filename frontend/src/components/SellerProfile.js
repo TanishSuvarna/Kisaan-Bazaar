@@ -33,6 +33,7 @@ const SellerProfile = () => {
                 <label htmlFor="">UserName:</label>
                 <label htmlFor="">Email:</label>
                 <label htmlFor="">Rating:</label>
+                <label htmlFor="">Earning:</label>
                 <label htmlFor="">Address:</label>
               </div>
               <div>
@@ -40,6 +41,7 @@ const SellerProfile = () => {
                 <p>{userProfile.email}</p>
 
                 <p>{userProfile.rating}</p>
+                <p>{userProfile.earning ? userProfile.earning : 0}</p>
                 <p>{userProfile.address}</p>
               </div>
             </div>

@@ -54,13 +54,14 @@ function Sign({ setisSignin, setisSignup ,setcrossClicked}) {
     lastName: "",
     email: "",
     address: "",
-    state: options[0],
+    state: "",
     password: "",
   });
   const [query, setQuery] = useState("Buyer");
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
+    if(!userInfo.firstName  || !userInfo.lastName || !userInfo.email || !userInfo.address  || !userInfo.state|| userInfo.password.length < 6) return alert("Please Enter Valid Details")
     try {
       const axios = customInstance();
       const payload = await axios.post(`/${query}/signup`, userInfo);
@@ -68,15 +69,17 @@ function Sign({ setisSignin, setisSignup ,setcrossClicked}) {
       localStorage.setItem("user", JSON.stringify(payload.data.user));
       if (query === "Buyer") {
         localStorage.setItem("userType", "Buyer");
+        console.log("click");
         setcrossClicked(true);
         setisSignup(false);
+        
       } else {
         localStorage.setItem("userType", "Seller");
         navigate("/seller/profile");
       }
-    } catch (err) {
+    } catch{
+      console.log("heyyy");
       alert("Something Went Wrong");
-      console.log(err.message);
     }
     setUserInfo({
       firstName: "",
@@ -200,6 +203,7 @@ function Sign({ setisSignin, setisSignup ,setcrossClicked}) {
                     name="state"
                     onChange={handleChange}
                   >
+                    <option disabled = {true} value = "">Select State</option>
                     {options.map((value, index) => (
                       <option value={value} key={index}>
                         {value}
