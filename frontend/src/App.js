@@ -15,6 +15,7 @@ import Market from "./components/market.js/market.js";
 import MarketNew from "./components/MarketNew.js";
 import ProductDescription from './components/ProductDescription.js'
 import BuyerCart from './components/BuyerCart.js'
+import PrevAuction from './components/PrevAuction.js'
 function App() {
   // const [num , setNum] = useState(0);
   // const [visual , setVisual] = useState(0);
@@ -41,6 +42,7 @@ function App() {
         <Route element={<PrivateRoutes />}>
           <Route path="/seller" element={<SellerRoutes />}>
             <Route path="/seller/SellProduct" element={<SellProduct socket = {socket}/>}></Route>
+            <Route path="/seller/SoldProducts" element={<PrevAuction socket = {socket}/>}></Route>
             <Route path="*" element={<SellerProfile socket = {socket}/>}></Route>
           </Route>
         </Route>

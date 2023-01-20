@@ -11,7 +11,6 @@ const PrevAuction = () => {
       const axios = customInstance();
       const data = await axios.get("/seller/inactiveProducts");
       setOngoing([...data.data]);
-      console.log(data);
     };
     func();
   }, []);
@@ -41,9 +40,9 @@ const PrevAuction = () => {
                         <div className="current-bid">
                           <p>Buyer Name</p>
                           <p>
-                            {product.currentBidder
-                              ? product.currentBidder.name
-                              : "None"}
+                            {
+                              product.currentBidder ? product.currentBidder.firstName : "WrongData"
+                              }
                           </p>
                         </div>
                         <div className="highest-bidder">

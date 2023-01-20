@@ -119,7 +119,7 @@ const ProductDescription = ({ socket }) => {
                   edit={false}
                   count={5}
                   size={24}
-                  value={parseInt(currProduct.owner.rating)}
+                  value ={parseInt(currProduct.owner.rating)}
                   emptyIcon={<i className="far fa-star"></i>}
                   fullIcon={<i className="fa fa-star"></i>}
                   activeColor="#ffd700"

@@ -8,10 +8,9 @@ const Timer = ({ time }) => {
 
   // let interval;
 
-  const [timer, setTimer] = useState(true);
-  console.log(time);
-  const startTimer = () => {
-    const countDownDate = new Date(time).getTime();
+    const [timer, setTimer] = useState(true);
+    const startTimer = () => {
+        const countDownDate = new Date(time).getTime();
 
     let interval = setInterval(() => {
       const now = new Date().getTime();
@@ -25,22 +24,21 @@ const Timer = ({ time }) => {
       const minutes = Math.floor((distance % (60 * 60 * 1000)) / (1000 * 60));
       const seconds = Math.floor((distance % (60 * 1000)) / 1000);
 
-      if (distance < 0) {
-        console.log(distance);
-        // Stop Timer
-        clearInterval(interval);
-        setTimer(false);
-        // console.log(timer);
-      } else {
-        // Update Timer
-        setTimerDays(days);
-        setTimerHours(hours);
-        setTimerMinutes(minutes);
-        setTimerSeconds(seconds);
-        setTimer(true);
-      }
-    });
-  };
+            if (distance < 0) {
+                // Stop Timer
+                clearInterval(interval);
+                setTimer(false);
+                // console.log(timer);
+            } else {
+                // Update Timer
+                setTimerDays(days);
+                setTimerHours(hours);
+                setTimerMinutes(minutes);
+                setTimerSeconds(seconds);
+                setTimer(true);
+            }
+        });
+    };
 
   useEffect(() => {
     startTimer();
