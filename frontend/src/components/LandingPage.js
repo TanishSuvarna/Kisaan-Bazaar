@@ -79,7 +79,7 @@ const LandingPage = () => {
               accommodates online payments between buyer and seller.
             </p>
 
-            <button>Explore the market</button>
+            
           </div>
           <div className="landing-section-2-imgs"></div>
         </div>

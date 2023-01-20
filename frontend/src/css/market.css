@@ -73,3 +73,31 @@
     
     
 }
+.market-main-container h1{
+    font-size: 3rem;
+    color: rgb(55, 55, 55) !important;
+}
+.market-main-container h1 span{
+    font-size: 4rem;
+    color: var(--main-color);
+}
+.select-option-market-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+.select-option-market-div p{
+    font-size: 1.4rem;
+    color: grey;
+}
+.select-option-market{
+    padding: 0.5em;
+    padding-left: 1em;
+    padding-right: 1em;
+    background-color: var(--main-color);
+    font-weight: 600;
+    border: none;
+    font-size: 1rem;
+}
