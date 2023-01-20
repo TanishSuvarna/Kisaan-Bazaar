@@ -20,6 +20,7 @@ import { customInstance } from "../helpers/axios";
 const grains = ["Wheat", "Jowar", "Rice", "Corn"];
 const vegetables = ["Tomato", "LadyFinger", "Methi", "Sprouts"];
 const fruits = ["Banana", "Watermelon", "Apple", "Custard Apple"];
+
 function SellProductForm({ setter, setisCrossed, setisAddProduct }) {
   const [productInfo, setProductInfo] = useState({
     name: "",
