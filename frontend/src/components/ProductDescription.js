@@ -27,9 +27,8 @@ const ProductDescription = ({ socket }) => {
       currentBidder: JSON.parse(localStorage.user)._id,
       currentBidderName: JSON.parse(localStorage.user).firstName,
     };
-    if (socket) {
-      socket.emit("send_current_bid", data);
-    }
+   
+    socket.emit("send_current_bid", data);
   };
 
   useEffect(() => {
@@ -42,13 +41,11 @@ const ProductDescription = ({ socket }) => {
     }
   }, [inputValue]);
 
-  useEffect(() => {
-    socket.off("update_current_bid").on("update_current_bid", (data) => {
-      setinputValue(data.inputValue);
-      setcurrBid(data.inputValue);
-      console.log("hello" + data.inputValue);
-    });
-  }, [socket]);
+  socket.off("update_current_bid").on("update_current_bid", (data) => {
+    setinputValue(data.inputValue);
+    setcurrBid(data.inputValue);
+    console.log("hello" + data.inputValue);
+  });
 
   useEffect(() => {
     const func = async () => {

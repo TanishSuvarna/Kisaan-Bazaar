@@ -27,14 +27,21 @@ const SellProduct = ({ socket }) => {
   // })
 
   socket.off("update_current_bid").on("update_current_bid", (product) => {
+    console.log(product);
     let remov = ongoing.map((p) => {
       if (p._id === product.id) {
         p.currentBid = product.inputValue;
-       
-        p.currentBidder.firstName = product.currentBidderName;
+        if (!p.currentBidder) {
+          p.currentBidder = {
+            firstName: product.currentBidderName,
+          };
+        } else {
+          p.currentBidder.firstName = product.currentBidderName;
+        }
       }
       return p;
     });
+
     console.log(remov);
     setOngoing(remov);
   });
