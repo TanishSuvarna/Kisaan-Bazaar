@@ -64,10 +64,11 @@
 }
 
 .market-main-container{
-    padding-top: 12vh;
-    padding-bottom: 12vh;
+    margin-top: 11vh;
+    padding-top: 5vh;
+    padding-bottom: 14vh;
     position: relative;
-    z-index: -2;
+    z-index: 0;
     background-color: rgb(237, 237, 237);
-    background-image: linear-gradient(rgb(8, 8, 8) , rgb(231, 231, 231));
+    
 }
