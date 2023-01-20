@@ -107,6 +107,51 @@ const LandingPage = () => {
           </div>
         </div>
       </div>
+      {/* <div class="header">
+
+    <h1>Key Features </h1>
+    <hr />
+
+
+  </div>
+  <div class="row1-container">
+    <div class="box box-down cyan">
+      <h2>Sell Your Products</h2>
+      <p> Users can sell their products via our website . Our website uses
+                an auction system which provides a fare chance for the seller to
+                earn decent price for their products. Our system cuts the need
+                of a middleman for the farmers and help them earn a lot .</p>
+
+    </div>
+
+    <div class="box red">
+      <h2>Buy Products</h2>
+      <p> Users can register as a buyer and can participate in auctions of
+                their choice on the market place. Our System also suggest the
+                best autions to participate in . Buyers can see the ratings of
+                the respective seller and decide on their own.</p>
+
+    </div>
+
+    <div class="box box-down blue">
+      <h2>Learn to farm</h2>
+      <p>Our system provides a learning platform for the farmers by which
+                the can know which plants or crops can be grown according to the
+                whether at their rexpective locations. This will help them to
+                maximize their agriculture and benifit in the long run</p>
+
+    </div>
+  </div>
+  <div class="row2-container">
+    <div class="box orange">
+      <h2>Compare the best prices</h2>
+      <p>For the buyers our system compares the best priced autions that
+                are currently available for the buyer to participate in . This
+                comparision is based on the quantity as well as the current bid
+                of the product.</p>
+
+    </div>
+  </div> */}
 
       <div className="features">
         <div className="back-lines"> </div>
@@ -194,7 +239,7 @@ const LandingPage = () => {
               <div className="hamburger_lines"></div>
             </div>
           </div>
-          <Sign setisSignin={setisSignin} setisSignup={setisSignup}></Sign>
+          <Sign setisSignin={setisSignin} setcrossClicked={setcrossClicked} setisSignup={setisSignup}></Sign>
         </div>
       ) : (
         <div></div>
