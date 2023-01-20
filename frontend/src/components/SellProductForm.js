@@ -29,14 +29,21 @@ function SellProductForm({ setter, setisCrossed, setisAddProduct }) {
     description: "",
     image: "",
     category: "",
-    numberOfDaysToAdd: ""
+    numberOfDaysToAdd: "",
   });
 
   const handleSubmit = async (e) => {
     e.stopPropagation();
     e.preventDefault();
-    const { name, quantity, image, description, basePrice, category, numberOfDaysToAdd } =
-      productInfo;
+    const {
+      name,
+      quantity,
+      image,
+      description,
+      basePrice,
+      category,
+      numberOfDaysToAdd,
+    } = productInfo;
     if (
       !name ||
       !quantity ||
@@ -51,7 +58,12 @@ function SellProductForm({ setter, setisCrossed, setisAddProduct }) {
       const form = new FormData();
       const AuctionStartTime = new Date();
 
-      const AuctionEndTime = new Date(AuctionStartTime.setDate(new Date().getDate() + parseInt(numberOfDaysToAdd ? numberOfDaysToAdd : 1)));
+      const AuctionEndTime = new Date(
+        AuctionStartTime.setDate(
+          new Date().getDate() +
+            parseInt(numberOfDaysToAdd ? numberOfDaysToAdd : 1)
+        )
+      );
       form.append("name", name);
       form.append("quantity", quantity);
       form.append("image", image);
@@ -60,7 +72,6 @@ function SellProductForm({ setter, setisCrossed, setisAddProduct }) {
       form.append("basePrice", basePrice);
       form.append("AuctionEndTime", AuctionEndTime);
       const add = await axios.post("/seller/addProduct", form);
-
 
       setter((prev) => {
         return [...prev, add.data.newProduct];
@@ -76,7 +87,7 @@ function SellProductForm({ setter, setisCrossed, setisAddProduct }) {
       description: "",
       image: "",
       category: "",
-      numberOfDaysToAdd: ""
+      numberOfDaysToAdd: "",
     });
     setisCrossed(true);
     setisAddProduct(true);
@@ -106,6 +117,7 @@ function SellProductForm({ setter, setisCrossed, setisAddProduct }) {
                     value={productInfo.category}
                     onChange={handleChange}
                     name="category"
+                    className="mb-1 py-2 px-4 ms-3 square border border-grey"
                   >
                     <option value="">Please Select a value</option>
                     <option value="Vegetables">Vegetables</option>
@@ -126,6 +138,7 @@ function SellProductForm({ setter, setisCrossed, setisAddProduct }) {
                     value={productInfo.name}
                     onChange={handleChange}
                     name="name"
+                    className="mb-1 py-2 px-4 ms-3 square border border-grey"
                   >
                     <option value="">Please Select a value</option>
                     {productInfo.category === "Vegetables" &&
@@ -193,14 +206,18 @@ function SellProductForm({ setter, setisCrossed, setisAddProduct }) {
                   </MDBCol>
 
                   <MDBCol md="5" className="pe-5">
-                    <select name="numberOfDaysToAdd" value={productInfo.numberOfDaysToAdd} onChange={handleChange}>
+                    <select
+                      className="mb-1 py-2 px-4 ms-3 square border border-grey"
+                      name="numberOfDaysToAdd"
+                      value={productInfo.numberOfDaysToAdd}
+                      onChange={handleChange}
+                    >
                       <option value="">Please Select</option>
                       <option value={1}> 1 </option>
                       <option value={2}> 2 </option>
                       <option value={3}> 3 </option>
                       <option value={4}> 4 </option>
                       <option value={5}> 5 </option>
-
                     </select>
                   </MDBCol>
                 </MDBRow>

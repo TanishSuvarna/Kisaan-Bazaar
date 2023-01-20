@@ -47,7 +47,7 @@ const options = [
   "West Bengal",
 ];
 
-function Sign({ setisSignin, setisSignup ,setcrossClicked}) {
+function Sign({ setisSignin, setisSignup, setcrossClicked }) {
   const navigate = useNavigate();
   const [formErrors, setFormErrors] = useState({});
   const [userInfo, setUserInfo] = useState({
@@ -63,25 +63,27 @@ function Sign({ setisSignin, setisSignup ,setcrossClicked}) {
     e.preventDefault();
     e.stopPropagation();
     setFormErrors(validate(userInfo));
-    try {
-      const axios = customInstance();
-      const payload = await axios.post(`/${query}/signup`, userInfo);
-      localStorage.setItem("token", payload.data.token);
-      localStorage.setItem("user", JSON.stringify(payload.data.user));
-      if (query === "Buyer") {
-        localStorage.setItem("userType", "Buyer");
-        console.log("click");
-        setcrossClicked(true);
-        setisSignup(false);
-        
-      } else {
-        localStorage.setItem("userType", "Seller");
-        navigate("/seller/profile");
+    if (!formErrors) {
+      try {
+        const axios = customInstance();
+        const payload = await axios.post(`/${query}/signup`, userInfo);
+        localStorage.setItem("token", payload.data.token);
+        localStorage.setItem("user", JSON.stringify(payload.data.user));
+        if (query === "Buyer") {
+          localStorage.setItem("userType", "Buyer");
+          console.log("click");
+          setcrossClicked(true);
+          setisSignup(false);
+        } else {
+          localStorage.setItem("userType", "Seller");
+          navigate("/seller/profile");
+        }
+      } catch {
+        console.log("heyyy");
+        alert("Something Went Wrong");
       }
-    } catch{
-      console.log("heyyy");
-      alert("Something Went Wrong");
     }
+
     // alert(formErrors);
     setUserInfo({
       firstName: "",
@@ -99,21 +101,22 @@ function Sign({ setisSignin, setisSignup ,setcrossClicked}) {
     });
   };
 
-  const validate = (values) =>{
-    const errors = {}
-    const regex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-    if(values.firstName.length < 3){
+  const validate = (values) => {
+    const errors = {};
+    const regex =
+      /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    if (values.firstName.length < 3) {
       errors.firstName = "First Name must have atleast 3 character.";
     }
-    if(values.lastName.length < 3){
+    if (values.lastName.length < 3) {
       errors.lastName = "Last Name must have atleast 3 character.";
     }
-    if(values.password.length < 7){
+    if (values.password.length < 7) {
       errors.password = "Password must have atleast 6 character.";
-    } else if(values.password.length > 16){
+    } else if (values.password.length > 16) {
       errors.password = "Password can not have more than 16 character.";
     }
-    if(!regex.test(values.email)){
+    if (!regex.test(values.email)) {
       errors.email = "This is not a valid email format";
     }
     return errors;
@@ -128,8 +131,16 @@ function Sign({ setisSignin, setisSignup ,setcrossClicked}) {
             style={{ borderRadius: "1rem", maxWidth: "600px" }}
           >
             <MDBCardBody className="px-5 py-4 w-100 d-flex flex-column h-90">
-            <h2 className="fw-bold mb-4 text-center" 
-                style={{color: 'dodgerblue', fontFamily: "system-ui", fontSize: '40px'}} >Sign Up</h2>
+              <h2
+                className="fw-bold mb-4 text-center"
+                style={{
+                  color: "dodgerblue",
+                  fontFamily: "system-ui",
+                  fontSize: "40px",
+                }}
+              >
+                Sign Up
+              </h2>
 
               <MDBCol md="6" className="mb-3">
                 <h6 className="fw-bold">I am: </h6>
@@ -165,9 +176,14 @@ function Sign({ setisSignin, setisSignup ,setcrossClicked}) {
                     value={userInfo.firstName}
                     onChange={handleChange}
                   />
-                  <p className="mb-1" style={{color: 'red', fontSize: '13px'}}>{formErrors.firstName}</p>
+                  <p
+                    className="mb-1"
+                    style={{ color: "red", fontSize: "13px" }}
+                  >
+                    {formErrors.firstName}
+                  </p>
                 </MDBCol>
-                
+
                 <MDBCol md="6">
                   <MDBInput
                     wrapperClass="mb-3"
@@ -180,11 +196,15 @@ function Sign({ setisSignin, setisSignup ,setcrossClicked}) {
                     value={userInfo.lastName}
                     onChange={handleChange}
                   />
-                  <p className="mb-1" style={{color: 'red', fontSize: '13px'}}>{formErrors.lastName}</p>
+                  <p
+                    className="mb-1"
+                    style={{ color: "red", fontSize: "13px" }}
+                  >
+                    {formErrors.lastName}
+                  </p>
                 </MDBCol>
-                
               </MDBRow>
-              
+
               <MDBInput
                 wrapperClass="mb-3 w-100"
                 required
@@ -196,7 +216,9 @@ function Sign({ setisSignin, setisSignup ,setcrossClicked}) {
                 value={userInfo.email}
                 onChange={handleChange}
               />
-              <p className="mb-1" style={{color: 'red', fontSize: '13px'}}>{formErrors.email}</p>
+              <p className="mb-1" style={{ color: "red", fontSize: "13px" }}>
+                {formErrors.email}
+              </p>
               <MDBInput
                 wrapperClass="mb-3 w-100"
                 required
@@ -208,7 +230,9 @@ function Sign({ setisSignin, setisSignup ,setcrossClicked}) {
                 value={userInfo.password}
                 onChange={handleChange}
               />
-              <p className="mb-1" style={{color: 'red', fontSize: '13px'}}>{formErrors.password}</p>
+              <p className="mb-1" style={{ color: "red", fontSize: "13px" }}>
+                {formErrors.password}
+              </p>
               <MDBInput
                 wrapperClass="mb-3"
                 required
@@ -231,7 +255,9 @@ function Sign({ setisSignin, setisSignup ,setcrossClicked}) {
                     name="state"
                     onChange={handleChange}
                   >
-                    <option disabled = {true} value = "">Select State</option>
+                    <option disabled={true} value="">
+                      Select State
+                    </option>
                     {options.map((value, index) => (
                       <option value={value} key={index}>
                         {value}
@@ -270,23 +296,23 @@ function Sign({ setisSignin, setisSignup ,setcrossClicked}) {
               </MDBBtn>
 
               <div>
-                  <hr />
-                  <p className="mb-0 text-center">
-                    Already have an account?{" "}
-                    <a
-                      class="text-dark-50 fw-bold "
-                      style={{cursor: 'pointer'}}
-                      onClick={() => {
-                        setisSignin(true);
-                        setisSignup(false);
-                        setcrossClicked(false);
-                        // alert("Welcome to Login");
-                      }}
-                    >
-                      Login
-                    </a>
-                  </p>
-                </div>
+                <hr />
+                <p className="mb-0 text-center">
+                  Already have an account?{" "}
+                  <a
+                    class="text-dark-50 fw-bold "
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      setisSignin(true);
+                      setisSignup(false);
+                      setcrossClicked(false);
+                      // alert("Welcome to Login");
+                    }}
+                  >
+                    Login
+                  </a>
+                </p>
+              </div>
             </MDBCardBody>
           </MDBCard>
         </MDBRow>
