@@ -29,13 +29,13 @@ function SellProductForm({ setter, setisCrossed, setisAddProduct }) {
     description: "",
     image: "",
     category: "",
-    numberOfDaysToAdd :""
+    numberOfDaysToAdd: ""
   });
-  
+
   const handleSubmit = async (e) => {
     e.stopPropagation();
     e.preventDefault();
-    const { name, quantity, image, description, basePrice, category ,numberOfDaysToAdd } =
+    const { name, quantity, image, description, basePrice, category, numberOfDaysToAdd } =
       productInfo;
     if (
       !name ||
@@ -43,7 +43,7 @@ function SellProductForm({ setter, setisCrossed, setisAddProduct }) {
       !description ||
       !basePrice ||
       !category ||
-      category.size === 0 
+      category.size === 0
     )
       return alert("Please Enter Valid Details");
     try {
@@ -51,7 +51,7 @@ function SellProductForm({ setter, setisCrossed, setisAddProduct }) {
       const form = new FormData();
       const AuctionStartTime = new Date();
 
-    const AuctionEndTime = new Date(AuctionStartTime.setDate(new Date().getDate() + parseInt(numberOfDaysToAdd ? numberOfDaysToAdd : 1)));
+      const AuctionEndTime = new Date(AuctionStartTime.setDate(new Date().getDate() + parseInt(numberOfDaysToAdd ? numberOfDaysToAdd : 1)));
       form.append("name", name);
       form.append("quantity", quantity);
       form.append("image", image);
@@ -60,8 +60,8 @@ function SellProductForm({ setter, setisCrossed, setisAddProduct }) {
       form.append("basePrice", basePrice);
       form.append("AuctionEndTime", AuctionEndTime);
       const add = await axios.post("/seller/addProduct", form);
-      
-      
+
+
       setter((prev) => {
         return [...prev, add.data.newProduct];
       });
@@ -71,12 +71,12 @@ function SellProductForm({ setter, setisCrossed, setisAddProduct }) {
     alert("Product Added Success");
     setProductInfo({
       name: "",
-    quantity: "",
-    basePrice: "",
-    description: "",
-    image: "",
-    category: "",
-    numberOfDaysToAdd :""
+      quantity: "",
+      basePrice: "",
+      description: "",
+      image: "",
+      category: "",
+      numberOfDaysToAdd: ""
     });
     setisCrossed(true);
     setisAddProduct(true);
@@ -193,15 +193,15 @@ function SellProductForm({ setter, setisCrossed, setisAddProduct }) {
                   </MDBCol>
 
                   <MDBCol md="5" className="pe-5">
-                        <select name = "numberOfDaysToAdd" value = {productInfo.numberOfDaysToAdd} onChange = {handleChange}>
-                          <option value = "">Please Select</option>
-                          <option value = {1}> 1 </option>
-                          <option value = {2}> 2 </option>
-                          <option value = {3}> 3 </option>
-                          <option value = {4}> 4 </option>
-                          <option value = {5}> 5 </option>
-                          
-                        </select>
+                    <select name="numberOfDaysToAdd" value={productInfo.numberOfDaysToAdd} onChange={handleChange}>
+                      <option value="">Please Select</option>
+                      <option value={1}> 1 </option>
+                      <option value={2}> 2 </option>
+                      <option value={3}> 3 </option>
+                      <option value={4}> 4 </option>
+                      <option value={5}> 5 </option>
+
+                    </select>
                   </MDBCol>
                 </MDBRow>
 
