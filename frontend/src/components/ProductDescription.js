@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
 import { io } from "socket.io-client";
 import { customInstance } from "../helpers/axios";
+import Timer from "./Timer";
 
 const ProductDescription = ({ socket }) => {
   const [currProduct, setcurrProduct] = useState();
@@ -27,7 +28,7 @@ const ProductDescription = ({ socket }) => {
       currentBidder: JSON.parse(localStorage.user)._id,
       currentBidderName: JSON.parse(localStorage.user).firstName,
     };
-   
+
     socket.emit("send_current_bid", data);
   };
 
@@ -115,26 +116,18 @@ const ProductDescription = ({ socket }) => {
               <div className="product-seller-rating">
                 <h1>Rating: </h1>
                 <ReactStars
+                  edit={false}
                   count={5}
                   size={24}
-                  // value ={parseInt(product.owner.rating)}
+                  value ={parseInt(currProduct.owner.rating)}
                   emptyIcon={<i className="far fa-star"></i>}
                   fullIcon={<i className="fa fa-star"></i>}
                   activeColor="#ffd700"
                 />
               </div>
               <div className="product-bid-time-left">
-                <h1>Time left:</h1>
-                <div className="time-holder">
-                  <div>
-                    <h1>2</h1> <p>{}</p>
-                  </div>
-                  <div>
-                    <h1>2</h1> <p>{}</p>
-                  </div>
-                  <div>
-                    <h1>2</h1> <p>{}</p>
-                  </div>
+                <div className="time-left-div">
+                  <Timer time={currProduct.AuctionEndTime}> </Timer>
                 </div>
               </div>
 
