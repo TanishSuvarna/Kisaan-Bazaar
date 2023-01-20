@@ -21,14 +21,14 @@ const BuyerNavbar = ({ setisSignin, setisSignup, setcrossClicked }) => {
           </Link>
           {buyer && (
             <>
-            <Link to="/buyer/market">
-              <li className="navbar-links">Market</li>
-            </Link>
-            <Link to="/buyer/cart">
-            <li className="navbar-links">Cart</li>
-          </Link></>
+              <Link to="/buyer/market">
+                <li className="navbar-links">Market</li>
+              </Link>
+              <Link to="/buyer/cart">
+                <li className="navbar-links">Cart</li>
+              </Link>
+            </>
           )}
-          <li className="navbar-links">Contact</li>
           {!buyer ? (
             <>
               <li

@@ -56,12 +56,13 @@
 }
 .product-details{
     position: absolute;
-    top: 50%;
+    top: 30%;
     left: 7%;
     color: white;
     display: flex;
     flex-direction: column;
     width: 100%;
+    gap: 1em;
 }
 
 .bid-info{
@@ -73,8 +74,16 @@
 .current-bid{
     width: 50%;
 }
+.current-bid p{
+    margin: 0;
+
+}
 .highest-bidder{
     width: 50%;
+
+}
+.highest-bidder p{
+    margin: 0;
 
 }
 .sell-btn{
@@ -113,7 +122,7 @@
     content: "";
     bottom: -30%;
     left: 0;
-    background-image: linear-gradient(rgb(0, 0, 0,0) , rgb(0, 0, 0,0.8));
+    background-image: linear-gradient(rgb(0, 0, 0,0) , rgb(0, 0, 0,1));
     transition: bottom 0.4s ease;
     width: 100%;
     height: 100%;

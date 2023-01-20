@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect ,useState} from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import ReactStars from "react-rating-stars-component";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import "../../css/market.css";
@@ -6,7 +6,7 @@ import "../../css/market.css";
 import { useParams } from "react-router-dom";
 import { customInstance } from "../../helpers/axios";
 import BuyerNavbar from "../BuyerNavbar";
-import Timer from "../Timer.js"
+import Timer from "../Timer.js";
 import {
  
   MDBContainer,
@@ -23,34 +23,39 @@ const Market = ({socket}) => {
   const [loading,setLoading] = useState(true);
   const [filter , setFilter] = useState("")
   const navigate = useNavigate();
-  useEffect(()=>{
+  useEffect(() => {
     const axios = customInstance();
-    const func = async ()=>{
-      try{
-        const activeProducts = await axios.get(`/buyer/activeProducts/${category}`);
+    const func = async () => {
+      try {
+        const activeProducts = await axios.get(
+          `/buyer/activeProducts/${category}`
+        );
         setAllProducts(activeProducts);
+      } catch (err) {
+        console.log(err);
       }
-      catch(err){
-        console.log(err)
-      }
-    }
-    
+    };
+
     func();
-  },[])
+  }, []);
   useEffect(() => {
     setLoading(false);
-    console.log(allProducts);
-  },[allProducts])
-  socket.off('productSold').on("productSold" , (product) => {
-    if(product.name === category && allProducts.data && allProducts.data.allProducts && allProducts.data.allProducts.length > 0){
+  }, [allProducts]);
+  socket.off("productSold").on("productSold", (product) => {
+    if (
+      product.name === category &&
+      allProducts.data &&
+      allProducts.data.allProducts &&
+      allProducts.data.allProducts.length > 0
+    ) {
       setLoading(true);
       let remov = allProducts.data.allProducts.map((p) => {
-        if(p._id === product._id){
+        if (p._id === product._id) {
           p.bidEnded = true;
         }
         return p;
       });
-      setAllProducts({data:{allProducts:remov}});
+      setAllProducts({ data: { allProducts: remov } });
     }
   })
   useEffect(() => {
@@ -149,15 +154,12 @@ const Market = ({socket}) => {
                   } 
                   </div>
                 </div>
-              {/* </div> */}
-              
-            </section> 
-            
-          </MDBContainer>
-        </div>
-      </Fragment>
+                {/* </div> */}
+              </section>
+            </MDBContainer>
+          </div>
+        </Fragment>
       </div>
-      
     </>
   );
 };

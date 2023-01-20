@@ -96,12 +96,15 @@ const SellProduct = ({ socket }) => {
                           </p>
                         </div>
                       </div>
+                      <div>
+                        <Timer time = {product.AuctionEndTime}/>
+                        </div>
                       <div className="sell-btn">
                         <button disabled = {parseInt(product.currentBid) >= parseInt(product.basePrice) ? false : true} onClick={() => handleSell(product)}>
                           Sell
                         </button>
-
-                        <Timer time = {product.AuctionEndTime}/>
+                       
+                       
                       </div>
                     </div>
                   </div>
