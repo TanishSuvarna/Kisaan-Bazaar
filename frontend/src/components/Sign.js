@@ -49,6 +49,7 @@ const options = [
 
 function Sign({ setisSignin, setisSignup ,setcrossClicked}) {
   const navigate = useNavigate();
+  const [formErrors, setFormErrors] = useState({});
   const [userInfo, setUserInfo] = useState({
     firstName: "",
     lastName: "",
@@ -61,7 +62,7 @@ function Sign({ setisSignin, setisSignup ,setcrossClicked}) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-    if(!userInfo.firstName  || !userInfo.lastName || !userInfo.email || !userInfo.address  || !userInfo.state|| userInfo.password.length < 6) return alert("Please Enter Valid Details")
+    setFormErrors(validate(userInfo));
     try {
       const axios = customInstance();
       const payload = await axios.post(`/${query}/signup`, userInfo);
@@ -81,6 +82,7 @@ function Sign({ setisSignin, setisSignup ,setcrossClicked}) {
       console.log("heyyy");
       alert("Something Went Wrong");
     }
+    // alert(formErrors);
     setUserInfo({
       firstName: "",
       lastName: "",
@@ -90,11 +92,33 @@ function Sign({ setisSignin, setisSignup ,setcrossClicked}) {
       password: "",
     });
   };
+
   const handleChange = (e) => {
     setUserInfo((prev) => {
       return { ...prev, [e.target.name]: e.target.value };
     });
   };
+
+  const validate = (values) =>{
+    const errors = {}
+    const regex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    if(values.firstName.length < 3){
+      errors.firstName = "First Name must have atleast 3 character.";
+    }
+    if(values.lastName.length < 3){
+      errors.lastName = "Last Name must have atleast 3 character.";
+    }
+    if(values.password.length < 7){
+      errors.password = "Password must have atleast 6 character.";
+    } else if(values.password.length > 16){
+      errors.password = "Password can not have more than 16 character.";
+    }
+    if(!regex.test(values.email)){
+      errors.email = "This is not a valid email format";
+    }
+    return errors;
+  };
+
   return (
     <MDBContainer fluid>
       <form onSubmit={handleSubmit}>
@@ -141,8 +165,9 @@ function Sign({ setisSignin, setisSignup ,setcrossClicked}) {
                     value={userInfo.firstName}
                     onChange={handleChange}
                   />
+                  <p>{formErrors.firstName}</p>
                 </MDBCol>
-
+                
                 <MDBCol md="6">
                   <MDBInput
                     wrapperClass="mb-4"
@@ -155,9 +180,11 @@ function Sign({ setisSignin, setisSignup ,setcrossClicked}) {
                     value={userInfo.lastName}
                     onChange={handleChange}
                   />
+                  <p>{formErrors.lastName}</p>
                 </MDBCol>
+                
               </MDBRow>
-
+              
               <MDBInput
                 wrapperClass="mb-4 w-100"
                 required
@@ -169,6 +196,7 @@ function Sign({ setisSignin, setisSignup ,setcrossClicked}) {
                 value={userInfo.email}
                 onChange={handleChange}
               />
+              <p>{formErrors.email}</p>
               <MDBInput
                 wrapperClass="mb-4 w-100"
                 required
@@ -180,7 +208,7 @@ function Sign({ setisSignin, setisSignup ,setcrossClicked}) {
                 value={userInfo.password}
                 onChange={handleChange}
               />
-
+              <p>{formErrors.password}</p>
               <MDBInput
                 wrapperClass="mb-4"
                 required
@@ -252,7 +280,7 @@ function Sign({ setisSignin, setisSignup ,setcrossClicked}) {
                         setisSignin(true);
                         setisSignup(false);
                         setcrossClicked(false);
-                        alert("Welcome to Login");
+                        // alert("Welcome to Login");
                       }}
                     >
                       Login
