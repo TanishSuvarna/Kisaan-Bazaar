@@ -33,10 +33,11 @@ export const addProduct = async (req,res,next) => {
     //     parentID : req.body.parentID,
     //     categoryImage : req.file ? process.env.API + "/public" + "/" + req.file.filename : ""
     // }
-    const {name , quantity , basePrice ,description, numberOfDaysToAdd , category} = req.body;
+    const {name , quantity , basePrice ,description, AuctionEndTime , category} = req.body;
     if(!name || !quantity  || !basePrice || !description  || !category) return res.status(400).json({message:"Something Went Wrong"});
-    const AuctionStartTime = new Date();
-    const AuctionEndTime = new Date(AuctionStartTime.setDate(parseInt(AuctionStartTime.getDate()) + numberOfDaysToAdd ? parseInt(numberOfDaysToAdd) : 1));
+    
+    console.log(AuctionEndTime)
+    
     const image =  req.file ? process.env.API + "/public" + "/" + req.file.filename : "";
     try{
         const newProduct = new Products({name , quantity ,owner , basePrice ,description , AuctionEndTime ,image ,category })

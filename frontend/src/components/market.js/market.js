@@ -9,6 +9,7 @@ import rice from "../../img/rice.jpg";
 import { Navigate, useParams } from "react-router-dom";
 import { customInstance } from "../../helpers/axios";
 import BuyerNavbar from "../BuyerNavbar";
+import Timer from "../Timer.js"
 import {
   MDBCard,
   MDBContainer,
@@ -64,6 +65,9 @@ const Market = ({socket}) => {
   return (
     <>
       <BuyerNavbar></BuyerNavbar>
+
+      <div className="market-main-container">
+        
       <Fragment>
         <h1 className="text-danger fw-bold text-center mb-5">
           Welcome to Market Page
@@ -115,7 +119,7 @@ const Market = ({socket}) => {
                           </div>
                         </div>
                         <div className="countdown d-flex my-2">
-                          <div className="timer">Timer</div>
+                          <div className="timer">Timer : <Timer time = {product.AuctionEndTime}/></div>
                           <div className="total-bit">Current Bid {product.currentBid ? product.currentBid :  '0'} </div>
                         </div>
                         <MDBBtn disabled = {product.bidEnded ? true : false} onClick = {() => navigate(`/buyer/market/product/${product._id}`)}style={{ margin: "8px 100px" }}>
@@ -135,6 +139,8 @@ const Market = ({socket}) => {
           </MDBContainer>
         </div>
       </Fragment>
+      </div>
+      
     </>
   );
 };

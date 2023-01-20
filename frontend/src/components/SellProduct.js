@@ -6,6 +6,7 @@ import SellerNavbar from "./SellerNavbar";
 import { customInstance } from "../helpers/axios";
 import { useParams } from "react-router-dom";
 import productimg from "../img/wheat.jpg";
+import Timer from "./Timer";
 const SellProduct = ({ socket }) => {
   const [isCrossed, setisCrossed] = useState(false);
   const [isAddProduct, setisAddProduct] = useState(false);
@@ -94,6 +95,8 @@ const SellProduct = ({ socket }) => {
                         <button onClick={() => handleSell(product)}>
                           Sell
                         </button>
+
+                        <Timer time = {product.AuctionEndTime}/>
                       </div>
                     </div>
                   </div>

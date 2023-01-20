@@ -27,9 +27,10 @@ const MarketNew = () => {
     
     <>
 
-
+      <BuyerNavbar></BuyerNavbar>
 
       <div className="main-market-container">
+       
         <div className="market-main-heading">
           <h1>
             <span>Kisan</span> Market

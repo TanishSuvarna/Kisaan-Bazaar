@@ -27,7 +27,7 @@ const productSchema = new mongoose.Schema({
         ref:"Buyer"
     },
     AuctionEndTime:{
-        type:Date,
+        type: String,
         required:true
     },
     bidEnded:{

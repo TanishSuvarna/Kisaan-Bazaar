@@ -1,0 +1,10 @@
+.buyer-profile-container{
+    width: 100%;
+    padding-top: 10vh;
+    height: 100vh;
+    background-color: rgb(229, 229, 229);
+    position: relative;
+    z-index: -2;
+    display: flex;
+    justify-content: center;
+}

@@ -148,7 +148,7 @@
 .product-back-lines{
     position: absolute;
     top: 0;
-    
+    opacity: 0.4;
     background-image: url("../img/backLines.png");
     background-repeat: no-repeat;
     background-position: center;

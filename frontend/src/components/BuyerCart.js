@@ -5,7 +5,10 @@ import "../css/BuyerCart.css";
 import ReactStars from "react-rating-stars-component";
 import { customInstance } from "../helpers/axios";
 import axios from "axios";
+import BuyerNavbar from "./BuyerNavbar";
 const BuyerCart = () => {
+
+
   const [rating , setRating] = useState(0);
   const [allProducts , setAllProducts] = useState([]);
   const ratingChanged = (newRating) => {
@@ -34,8 +37,10 @@ const BuyerCart = () => {
   },[])
   return (
     <>
+    <BuyerNavbar></BuyerNavbar>
     
-      <div className="sellProduct-main-container">
+      <div className="buyercart-main-container">
+     
         <div className="sellProduct-wrapper">
           <div className="BuyerCart-heading">
             <h1>

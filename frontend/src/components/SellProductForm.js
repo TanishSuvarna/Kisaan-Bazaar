@@ -29,11 +29,13 @@ function SellProductForm({ setter, setisCrossed, setisAddProduct }) {
     description: "",
     image: "",
     category: "",
+    numberOfDaysToAdd :""
   });
+  
   const handleSubmit = async (e) => {
     e.stopPropagation();
     e.preventDefault();
-    const { name, quantity, image, description, basePrice, category } =
+    const { name, quantity, image, description, basePrice, category ,numberOfDaysToAdd } =
       productInfo;
     if (
       !name ||
@@ -41,20 +43,25 @@ function SellProductForm({ setter, setisCrossed, setisAddProduct }) {
       !description ||
       !basePrice ||
       !category ||
-      category.size == 0
+      category.size === 0 
     )
       return alert("Please Enter Valid Details");
     try {
       const axios = customInstance();
       const form = new FormData();
+      const AuctionStartTime = new Date();
+
+    const AuctionEndTime = new Date(AuctionStartTime.setDate(new Date().getDate() + parseInt(numberOfDaysToAdd ? numberOfDaysToAdd : 1)));
       form.append("name", name);
       form.append("quantity", quantity);
       form.append("image", image);
       form.append("category", category);
       form.append("description", description);
       form.append("basePrice", basePrice);
+      form.append("AuctionEndTime", AuctionEndTime);
       const add = await axios.post("/seller/addProduct", form);
-      console.log(add);
+      
+      
       setter((prev) => {
         return [...prev, add.data.newProduct];
       });
@@ -64,10 +71,12 @@ function SellProductForm({ setter, setisCrossed, setisAddProduct }) {
     alert("Product Added Success");
     setProductInfo({
       name: "",
-      quantity: "",
-      basePrice: "",
-      description: "",
-      image: "",
+    quantity: "",
+    basePrice: "",
+    description: "",
+    image: "",
+    category: "",
+    numberOfDaysToAdd :""
     });
     setisCrossed(true);
     setisAddProduct(true);
@@ -178,6 +187,46 @@ function SellProductForm({ setter, setisCrossed, setisAddProduct }) {
                 </MDBRow>
 
                 <hr className="mx-n3" />
+                <MDBRow className="align-items-center pt-4 pb-3">
+                  <MDBCol md="3" className="ps-5">
+                    <h6 className="mb-0">How Many Days The Auction Will Run</h6>
+                  </MDBCol>
+
+                  <MDBCol md="5" className="pe-5">
+                        <select name = "numberOfDaysToAdd" value = {productInfo.numberOfDaysToAdd} onChange = {handleChange}>
+                          <option value = "">Please Select</option>
+                          <option value = {1}> 1 </option>
+                          <option value = {2}> 2 </option>
+                          <option value = {3}> 3 </option>
+                          <option value = {4}> 4 </option>
+                          <option value = {5}> 5 </option>
+                          
+                        </select>
+                  </MDBCol>
+                </MDBRow>
+
+                <hr className="mx-n3" />
+                {/* <MDBRow className="align-items-center pt-4 pb-3">
+                  <MDBCol md="3" className="ps-5">
+                    <h6 className="mb-0">Date(in Kg)</h6>
+                  </MDBCol>
+
+                  <MDBCol md="5" className="pe-5">
+                    <MDBInput
+                    data-mdb-inline="true"
+                    type = "date"
+                    onChange = {handleDate}
+                      // name="quantity"
+                      // value={productInfo.quantity}
+                      // onChange={handleChange}
+                      // label="Quantity"
+                      // id="typeNumber"
+                      // type="number"
+                    />
+                  </MDBCol>
+                </MDBRow>
+
+                <hr className="mx-n3" /> */}
 
                 <MDBRow className="align-items-center pt-4 pb-3">
                   <MDBCol md="3" className="ps-5">
