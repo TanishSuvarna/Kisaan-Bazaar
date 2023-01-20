@@ -44,10 +44,7 @@ const SellerProfile = () => {
               </div>
             </div>
           </div>
-          <div className="profile-achivements-div">
-            <div className="profile-achivements"></div>
-            <div className="profile-achivements"></div>
-          </div>
+         
         </div>
       </div>
     </>

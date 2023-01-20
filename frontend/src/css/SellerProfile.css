@@ -36,7 +36,7 @@
     display: flex;
     width: 30%;
     height: 100%;
-    gap: 3%;
+   
     flex-direction: column;
 }
 .Profile-pic{
@@ -44,22 +44,24 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    width:100%;
+    width: 24em;
     height: 25em;
-    border-radius: 20em;
+    
     
 }
 .Profile-details{
-    border-radius: 1em;
+    
     background-color: white;
-    height: 70%;
-    padding: 3%;
-    width: 100%;
+    height: auto;
+    padding: 6%;
+    padding-bottom: 3em;
+    padding-top: 3em;
+    width: 20em;
     color:  var(--dark-green);
     display: flex;
     font-size: 1.2rem;
     gap: 5%;
-    box-shadow: 0px 0px 2px 0px;
+    box-shadow: 0px 40px 70px 0px var(--dark-green);
 }
 .Profile-details div{
     display: flex;

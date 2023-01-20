@@ -18,8 +18,8 @@ import {
 } from "mdb-react-ui-kit";
 import { customInstance } from "../helpers/axios";
 const grains = ["Wheat", "Jowar", "Rice", "Corn"];
-const vegetables = ["Tomato", "LadyFinger", "Methi", "Sprouts"];
-const fruits = ["Banana", "Watermelon", "Apple", "Custard Apple"];
+const vegetables = ["Potato", "Tomato", "Carrot", "Peas"];
+const fruits = ["Banana", "Apple", "Orange", "kiwi"];
 
 function SellProductForm({ setter, setisCrossed, setisAddProduct }) {
   const [productInfo, setProductInfo] = useState({
