@@ -23,7 +23,9 @@ const SellerNavbar = () => {
                 </Link>
 
 
-              <li className="dash-nav-links">Previous Auctions</li>
+              <Link to = "/seller/SoldProducts">
+                 <li className="dash-nav-links">Previous Auctions</li>
+              </Link>
               <Link to ="/" onClick={() => localStorage.clear()}>
                   <li className="dash-nav-links">Logout</li>
               </Link>

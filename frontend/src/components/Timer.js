@@ -9,7 +9,6 @@ const Timer = ({time}) => {
     // let interval;
 
     const [timer, setTimer] = useState(true);
-    console.log(time);
     const startTimer = () => {
         const countDownDate = new Date(time).getTime();
 
@@ -26,7 +25,6 @@ const Timer = ({time}) => {
             const seconds = Math.floor((distance % (60 * 1000)) / 1000);
 
             if (distance < 0) {
-                console.log(distance);
                 // Stop Timer
                 clearInterval(interval);
                 setTimer(false);

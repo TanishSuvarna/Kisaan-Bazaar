@@ -2,27 +2,17 @@ import React, { Fragment, useEffect ,useState} from "react";
 import ReactStars from "react-rating-stars-component";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import "../../css/market.css";
-import wheat from "../../img/wheat.jpg";
-import corn from "../../img/corn.jpg";
-import jowar from "../../img/jowar.jpg";
-import rice from "../../img/rice.jpg";
-import { Navigate, useParams } from "react-router-dom";
+
+import { useParams } from "react-router-dom";
 import { customInstance } from "../../helpers/axios";
 import BuyerNavbar from "../BuyerNavbar";
 import Timer from "../Timer.js"
 import {
-  MDBCard,
+ 
   MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBCardImage,
-  MDBCardBody,
-  MDBCardText,
+  
   MDBBtn,
-  MDBDropdown,
-  MDBDropdownMenu,
-  MDBDropdownToggle,
-  MDBDropdownItem,
+  
 } from "mdb-react-ui-kit";
 import { useNavigate } from "react-router-dom";
 
@@ -31,6 +21,7 @@ const Market = ({socket}) => {
   const {category} = useParams();
   const[allProducts , setAllProducts ] = useState([]);
   const [loading,setLoading] = useState(true);
+  const [filter , setFilter] = useState("")
   const navigate = useNavigate();
   useEffect(()=>{
     const axios = customInstance();
@@ -48,6 +39,7 @@ const Market = ({socket}) => {
   },[])
   useEffect(() => {
     setLoading(false);
+    console.log(allProducts);
   },[allProducts])
   socket.off('productSold').on("productSold" , (product) => {
     if(product.name === category && allProducts.data && allProducts.data.allProducts && allProducts.data.allProducts.length > 0){
@@ -61,6 +53,24 @@ const Market = ({socket}) => {
       setAllProducts({data:{allProducts:remov}});
     }
   })
+  useEffect(() => {
+    let temp;
+    if(allProducts.data && allProducts.data.allProducts && allProducts.data.allProducts.length > 0){
+      setLoading(true);
+       temp = allProducts.data.allProducts;
+    setAllProducts(() => temp.sort((a, b) => {
+      if(filter === "price"){
+        return (parseInt(a.currentBid)/parseInt(a.quantity)) -(parseInt(b.currentBid) / parseInt(b.quantity))
+      }
+      else{
+        return (parseInt(b.owner.rating) - parseInt(a.owner.rating))
+      }
+      
+  }
+  ))
+ }
+  setAllProducts({data:{allProducts:temp}});
+  },[filter])
   if(loading) return <h1>Loading...</h1>
   return (
     <>
@@ -72,6 +82,13 @@ const Market = ({socket}) => {
         <h1 className="text-danger fw-bold text-center mb-5">
           Welcome to Market Page
         </h1>
+        <select value = {filter} onChange = {(e) => setFilter(e.target.value)}>
+           <option disabled = {true} value = "">Select Filter</option>
+            <option value = "price">Price</option>
+           
+            <option value = "rating">Rating</option>
+
+        </select>
         <div className="market">
           <MDBContainer>
            <section id="wheat" className="wheat-section mb-8">
