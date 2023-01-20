@@ -239,7 +239,7 @@ const LandingPage = () => {
               <div className="hamburger_lines"></div>
             </div>
           </div>
-          <Sign setisSignin={setisSignin} setcrossClicked={setcrossClicked} setisSignup={setisSignup}></Sign>
+          <Sign setisSignin={setisSignin} setisSignup={setisSignup}></Sign>
         </div>
       ) : (
         <div></div>
