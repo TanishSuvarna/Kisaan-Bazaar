@@ -68,7 +68,8 @@ function Login2({ setisSignin, setisSignup, setcrossClicked }) {
               style={{ borderRadius: "1rem", maxWidth: "500px" }}
             >
               <MDBCardBody className="p-5 w-100 d-flex flex-column">
-                <h2 className="fw-bold mb-2 text-center">Login</h2>
+                <h2 className="fw-bold mb-4 text-center" 
+                style={{color: 'dodgerblue', fontFamily: "system-ui", fontSize: '40px'}} >Login</h2>
 
                 <MDBInput
                   wrapperClass="mb-4 w-100"
@@ -123,15 +124,16 @@ function Login2({ setisSignin, setisSignup, setcrossClicked }) {
 
                 <div>
                   <hr />
-                  <p className="mb-0">
+                  <p className="mb-0 text-center">
                     Don't have an account?{" "}
                     <a
                       class="text-dark-50 fw-bold"
+                      style={{cursor: 'pointer'}}
                       onClick={() => {
                         setisSignin(false);
                         setisSignup(true);
                         setcrossClicked(false);
-                        alert("hello");
+                        alert("Welcome to Sign Up");
                       }}
                     >
                       Sign Up
