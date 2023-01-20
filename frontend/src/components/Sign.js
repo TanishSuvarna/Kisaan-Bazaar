@@ -129,7 +129,7 @@ function Sign({ setisSignin, setisSignup ,setcrossClicked}) {
             <h2 className="fw-bold mb-4 text-center" 
                 style={{color: 'dodgerblue', fontFamily: "system-ui", fontSize: '40px'}} >Sign Up</h2>
 
-              <MDBCol md="6" className="mb-4">
+              <MDBCol md="6" className="mb-3">
                 <h6 className="fw-bold">I am: </h6>
                 <MDBRadio
                   required
@@ -153,7 +153,7 @@ function Sign({ setisSignin, setisSignup ,setcrossClicked}) {
               <MDBRow>
                 <MDBCol md="6">
                   <MDBInput
-                    wrapperClass="mb-4"
+                    wrapperClass="mb-3"
                     required
                     label="First Name"
                     size="lg"
@@ -163,12 +163,12 @@ function Sign({ setisSignin, setisSignup ,setcrossClicked}) {
                     value={userInfo.firstName}
                     onChange={handleChange}
                   />
-                  <p>{formErrors.firstName}</p>
+                  <p className="mb-1" style={{color: 'red', fontSize: '13px'}}>{formErrors.firstName}</p>
                 </MDBCol>
                 
                 <MDBCol md="6">
                   <MDBInput
-                    wrapperClass="mb-4"
+                    wrapperClass="mb-3"
                     required
                     label="Last Name"
                     size="lg"
@@ -178,13 +178,13 @@ function Sign({ setisSignin, setisSignup ,setcrossClicked}) {
                     value={userInfo.lastName}
                     onChange={handleChange}
                   />
-                  <p>{formErrors.lastName}</p>
+                  <p className="mb-1" style={{color: 'red', fontSize: '13px'}}>{formErrors.lastName}</p>
                 </MDBCol>
                 
               </MDBRow>
               
               <MDBInput
-                wrapperClass="mb-4 w-100"
+                wrapperClass="mb-3 w-100"
                 required
                 label="Email address"
                 id="formControlLg"
@@ -194,9 +194,9 @@ function Sign({ setisSignin, setisSignup ,setcrossClicked}) {
                 value={userInfo.email}
                 onChange={handleChange}
               />
-              <p>{formErrors.email}</p>
+              <p className="mb-1" style={{color: 'red', fontSize: '13px'}}>{formErrors.email}</p>
               <MDBInput
-                wrapperClass="mb-4 w-100"
+                wrapperClass="mb-3 w-100"
                 required
                 label="Password"
                 id="formControlLg"
@@ -206,9 +206,9 @@ function Sign({ setisSignin, setisSignup ,setcrossClicked}) {
                 value={userInfo.password}
                 onChange={handleChange}
               />
-              <p>{formErrors.password}</p>
+              <p className="mb-1" style={{color: 'red', fontSize: '13px'}}>{formErrors.password}</p>
               <MDBInput
-                wrapperClass="mb-4"
+                wrapperClass="mb-3"
                 required
                 label="Address"
                 size="lg"
