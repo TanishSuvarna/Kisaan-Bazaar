@@ -11,7 +11,7 @@ const SellProduct = ({ socket }) => {
   const [isCrossed, setisCrossed] = useState(false);
   const [isAddProduct, setisAddProduct] = useState(false);
   const [ongoing, setOngoing] = useState([]);
-
+  const [checkBid , setCheckBid] = useState(false);
   const [allProducts, setAllProducts] = useState([]);
 
   // socket.off('productSold').on("productSold" , (product) => {
@@ -26,9 +26,8 @@ const SellProduct = ({ socket }) => {
   //     setAllProducts({data:{allProducts:remov}});
 
   // })
-
+  
   socket.off("update_current_bid").on("update_current_bid", (product) => {
-    console.log(product);
     let remov = ongoing.map((p) => {
       if (p._id === product.id) {
         p.currentBid = product.inputValue;
@@ -43,7 +42,6 @@ const SellProduct = ({ socket }) => {
       return p;
     });
 
-    console.log(remov);
     setOngoing(remov);
   });
 
@@ -102,7 +100,7 @@ const SellProduct = ({ socket }) => {
                         <Timer time = {product.AuctionEndTime}/>
                         </div>
                       <div className="sell-btn">
-                        <button onClick={() => handleSell(product)}>
+                        <button disabled = {parseInt(product.currentBid) >= parseInt(product.basePrice) ? false : true} onClick={() => handleSell(product)}>
                           Sell
                         </button>
                        

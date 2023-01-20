@@ -11,19 +11,23 @@ const BuyerCart = () => {
 
   const [rating , setRating] = useState(0);
   const [allProducts , setAllProducts] = useState([]);
+  const [loading , setLoading] = useState(true);
   const ratingChanged = (newRating) => {
       setRating(newRating);
     
   }
   const rateIt = async (product) => {
     const axios = customInstance();
+    setLoading(true);
     const rate = await axios.post("/buyer/rateIt",{product , rating})
-    // const rem = allProducts.map((p) => product._id !== p._id);
+
+    const rem = allProducts.filter((p) => product._id !== p._id);
     // console.log(rem);
-    // setAllProducts(rem);
+    setAllProducts(rem);
   }
   useEffect(() => {
     const axios = customInstance();
+    setLoading(true);
     const func = async ()=>{
       try{
         const cart = await axios.get(`/buyer/cart`);
@@ -35,6 +39,11 @@ const BuyerCart = () => {
     }
     func();
   },[])
+  useEffect(() => {
+    setLoading(false);
+    // console.log(allProducts);
+  },[allProducts]);
+  if(loading) <h1>Loading...</h1>
   return (
     <>
     <BuyerNavbar></BuyerNavbar>
