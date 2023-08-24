@@ -27,7 +27,7 @@ const io = new Server(httpServer, {
 
 mongoose
   .connect(
-    `mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}@cluster0.ca84dgx.mongodb.net/${process.env.MONGO_DB_DATABASE}?retryWrites=true&w=majority`
+    `mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD/${process.env.MONGO_DB_DATABASE}?retryWrites=true&w=majority`
   )
   .then(() => console.log("CONNECTION SUCCESSFULL"))
   .catch((err) => console.log(err));
